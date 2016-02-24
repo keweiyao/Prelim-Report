@@ -34,6 +34,10 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
 \begin{document}
 
 % Use the \preprint command to place your local institutional report
@@ -112,6 +116,7 @@ Abstract:
 		\end{eqnarray}
 		Hydrodynamics translates initial spatial anisotropy into momentum space anisotropy reproducing the famous harmonic flows. 
 		Equation of state of hot QCD matter is an input as calculated from Lattice QCD.
+		3+1 d hydrodynamics \cite{Iurii:2014vhlle}
 
 		\item Statistical hadronization, freezeout. 
 		As temperature drops and hydrodynamics does not apply, the system is particularized by statistical sampling hadrons from particle distribution function, the Cooper-Frye formula,
@@ -147,7 +152,7 @@ Abstract:
 	
 	\section{TRENTo Initial Condition}
 	Under the boost-invariant approximation, it is sufficient to specify the initial condition at mid-rapidity ($\eta_s = 0$). Various models were proposed to describe the entropy/energy deposition at mid-rapidity. 
-	However, these models can be phenomenologically described with an effective model TRENTo.
+	However, these models can be phenomenologically described with an effective model TRENTo \cite{Moreland:2014oya}. 
 	TRENTo IC consist of three levels of parametrization,
 	\begin{itemize}
 		\item Binary nucleon-nucleon collision.
@@ -193,13 +198,13 @@ Abstract:
 	\end{eqnarray}
 	With parameter $p$ various, this ansatz mimic a variety of initial condition models.
 	\begin{center}
-	\begin{tabular}{c|c|c|c}
-	\hline
+	\begin{tabularx}{0.45\textwidth}{c>{\centering\arraybackslash}m{2.0cm}>{\centering\arraybackslash}m{2cm} cX}
+	\toprule[1pt]
 	$p$	&	$-0.5$	 	&	$0.0$ 		& 	$1.0$		\\
-	\hline	
+	\midrule[0.5pt]	
 	$\sim$ &		KLN		& 	EKRT		& 		Wounded Nucleon \\
-	\hline
-	\end{tabular}
+	\bottomrule[1pt]
+	\end{tabularx}
 	\end{center}
 	The ``$\sim$" sign in the table reminds that $T_R$ resembles the entropy deposition of different models for reasonable value of thickness function. 
 	This parametrization allows interpolation between different initial condition models and is suitable for a model selection procedure to learn what is the most probable initial condition to explain the observed experimental data at mid-rapidity.
@@ -228,21 +233,21 @@ The	with the relation between particle's rapidity and space-time rapidity,
 is used to obtain the final space-time distribution.
 
 	Different rapidity dependent IC models can be mapped to different parametrization of cumulants. Two existing approach with the name "Shifted" or "Tilted" are listed in the first two rows.
-%	\begin{widetext}
+	\begin{widetext}
 	\begin{center}
-	\begin{tabular}{c|c|c|c|c}
-	\hline
+	\begin{tabularx}{0.8\textwidth}{c *{4}{Y}}
+	\toprule[1pt]
 	Cumulants & mean &	std	& skewness	& kurtosis \\
-	\hline
-	Symbols	&	$\mu(x_\perp)$ & $\sigma(x_\perp)$& $\gamma(x_\perp)$  & $\kappa(x_\perp)$	\\
-	\hline
+	\cmidrule[0.5pt]{2-5}
+		&	$\mu(x_\perp)$ & $\sigma(x_\perp)$& $\gamma(x_\perp)$  & $\kappa(x_\perp)$	\\
+	\midrule[0.5pt]
 	shifted & $\frac{1}{2}\ln\frac{T_A}{T_B}$ & const. &  $0$	&const.\\
 	tilted & $0$ & const.& $T_A - T_B, \frac{T_A-T_B}{T_A+T_B}$	& const.\\
 	general & $\frac{a}{2}\ln\frac{T_A}{T_B}$& b  & $c(T_A - T_B)$ & d \\
-	\hline
-	\end{tabular}
+	\bottomrule[1pt]
+	\end{tabularx}
 	\end{center}
-%	\end{widetext}
+	\end{widetext}
 	A shifted initial condition assumes that in asymmetrical collisions, particle production (local in transverse plabe) as function of rapidity resembles a Gaussian as symmetrical case, with its mean shifted to the center of mass rapidity $\frac{1}{2}\ln(T_A/T_B)$. A tilted initial condition modified the symmetrical distribution by a linear tilting,
 	\begin{eqnarray}
 	f_{asy}(\eta_s) = f_{sym}(\eta_s) (1+\alpha \eta_s)
@@ -271,7 +276,123 @@ is used to obtain the final space-time distribution.
 
 \section{Model to Data Comparison}
 	The ultimate goal is to confront the calculations of hybrid model with different initial conditions to the experimental measurements, which will improve out knowledge of initial condition and expand model capability to look for rapidity related observables.
-	Here the procedure of a model to data comparison with Bayesian analysis summarized.
+	Here the procedure of a model to data comparison with Bayesian analysis summarized. 
+	\subsection{Parameter design}
+	Hybrid model for heavy ion physics usually contains multiple parameters. 
+	A 3d extension of the existing initial conditon introduce $4\sim5$ more parameters. 
+	This constitutes a high dimensional parameter space $(p_1, p_2, ..., p_n)$, which makes it impractical to uniformly search the space. 
+	A Latin Hypercube experimental design to sample parameters is preferable. 
+	In such experimental design, parameters (properly normalized to live in $[0,1)^n$ are generated in a Monte Carlo approach, such that
+	\begin{itemize}
+		\item Minimum distance between parameter points is maximized.
+		\item Projection of sampled parameter points onto lower dimensional space subject to uniform distribution.
+	\end{itemize}
+	The advantage of Latin Hypercube design is that it avoids over populated or sparse samples in a certain region and that the number of samples $N$ needed scales linear with dimension of parameter space $d$.
+	
+	The parameter sets allowed to varies in the present 3d extended initial condition is 
+	\begin{center}
+	\begin{tabularx}{0.45\textwidth}{c*{7}{Y}}
+		\toprule[1pt]
+		 & Norm	& fluct	& $a$ & $b$ & $c$ & $d$ & $K$ \\
+		\midrule[0.5pt]
+		lower & $8.$		&  $1.$	&	$0.$&	 $2.$ & $0.$ & $0.2$ & $0.6$ \\
+		upper	& $12.$		&  $4.$	&	$2.$& $4.$ & $0.5$ & $0.8$ & $0.8$ \\
+		\bottomrule[1pt]
+	\end{tabularx}
+	\end{center}
+	The model will run with each set of parameters from the $N$ samples and output the associate $m$ observables. Loosely speaking, the model maps the design matrix $(N \times d)$ to observable matrix $(N \times m)$,
+	\begin{eqnarray}\label{design-obs}
+	\left(\begin{array}{ccc}
+	p_{1}^{1}  & \cdots & p_{d}^{1}\\
+	\vdots  & \ddots & \vdots\\
+	p_{1}^{N}  & \cdots & p_{d}^{N}\\
+	\end{array}\right)
+	\xrightarrow{\textrm{Model}} 
+	\left(\begin{array}{ccc}
+	O_{1}^{1}  & \cdots & O_{m}^{1}\\
+	\vdots  & \ddots & \vdots\\
+	O_{1}^{N}  & \cdots & O_{m}^{N}\\
+	\end{array}\right)
+	\end{eqnarray}
+	
+	\subsection{Model emulator}
+	Inference of model calculation with arbitrary parameter sets within the parameter space (d-hypercube) is performed via Gaussian process (GP). 
+	The advantages of GP are that it is non-parametric and that the result is a likelihood distribution of prediction instead of a single valued prediction. 
+	This grants GP both flexibility and easy evaluation of uncertainty.
+	
+	 The Gaussian process is trained and optimized with mapping \ref{design-obs}, and then serves as a fast surrogate to infer model calculation with a given parameter set $p^*$,
+	 \begin{eqnarray}
+	 	(p^*_1, \cdots, p^*_d) \xrightarrow{\textrm{trained GP}} (O^*_1, \cdots, O^*_m).
+	 \end{eqnarray}
+	 
+	 \begin{itemize}
+	 \item {\bf Gaussian process of d-dimensional scalar function}
+	 
+	 Given an array of input d-vectors $\{\mathbf{x}_i, i = 1, 2, \cdots, N\}$, Gaussian Process is the multivariate normal distribution of the scalar outputs $\{y_i, i = 1, 2, \cdots, N\}$,  with specified mean and covariance matrix,
+	 \begin{eqnarray}
+	 y_i \sim \mathcal{N}(\mu_i, \Sigma_{ij}).
+	 \end{eqnarray}
+An instantiation of $y_i$ can be regard as $N$ points $(x_i, y_i)$ drawn from a random function with its property described by $\mu(\mathbf{x}), \Sigma(\mathbf{x}, \mathbf{x}')$. 
+	With $\mu(\mathbf{x})$ often set to zero without loss of generality, a common parametrization of $\Sigma(\mathbf{x}, \mathbf{x}')$ is:
+	\begin{eqnarray}\label{kernel}
+		\Sigma(\mathbf{x}, \mathbf{x}') &=& \sigma_0^2\exp\left( -\frac{1}{2}\Delta\mathbf{x}^T \mathbf{C} \Delta\mathbf{x} \right) + \sigma_n^2\delta_{\mathbf{x}, \mathbf{x}'}, \\
+		\Delta\mathbf{x} &=& \mathbf{x} - \mathbf{x}'	
+	\end{eqnarray}
+	With  matrix $C$ often be in diagonal form,
+	\begin{eqnarray}
+		\mathbf{C} = 
+		\left(		
+		\begin{array}{cccc}
+			l_1^{-2} 	& 	0 		&	 \cdots & 0	\\
+			0 			& l_2^{-2}	 & 		\cdots & 0	\\
+			\vdots 			& \vdots & \ddots & \vdots	\\
+			0 			& 		0 & \cdots & l_d^{-2} \\
+		\end{array}
+		\right)
+	\end{eqnarray}
+	Therefore, variance of $y(\mathbf{x})$ is $\sigma_n^2$ and nearby $\mathbf{x}$ have similar $y$, while large separation $\Delta \mathbf{x} \gg l$ results in almost uncorrelated outputs.
+	 
+	 
+	 \item {\bf Constrained Gaussian Process:}
+	 
+	 To make inference of models using GP, we need to constrain the GP to agree with the existing data,
+	 \begin{eqnarray}
+	 		\mathbf{x}_i \rightarrow y_i, i = 1, \cdots, N
+	 \end{eqnarray}
+	 The constrained GP predict $y(\mathbf{x}^*)$ (with zero mean) according to,
+	 \begin{eqnarray}
+	 	y(\mathbf{x}^*) &\sim& \mathcal{N}\left(0, \Sigma^*\right)
+	 \end{eqnarray}
+	 With the covariance matrix $\Sigma^*$ constructed from Eq. (\ref{kernel}),
+	 \begin{eqnarray}
+	 	\Sigma^* &=& \Sigma(\mathbf{x}^*, \mathbf{x}_i) -  \Sigma(\mathbf{x}^*, \mathbf{x}_i) \Sigma(\mathbf{x}_i, \mathbf{x}_j)^{-1} \Sigma(\mathbf{x}_j, \mathbf{x}^*)
+	 \end{eqnarray}
+	 The constrained GP is now a model surrogate. This argument is justified since the closer $\mathbf{x}^*$ to a data point $\mathbf{x_i}$, the output predicted by GP is closer to $y_i$ due to the reducing covariance. On the other hand, if we try to predict the model output at a $\mathbf{x}^*$ that is far from existing data, the uncertainty of prediction will be large.
+
+	\item{\bf Training Gaussian Process}
+	A Gaussian process also introduce its own parameters, or hyper-parameters, such as the $\theta = \{\sigma_n, l_i, \sigma_0\}$ in kernel function Eq. (\ref{kernel}). In principle, our lack of knowledge of the values of hyper-parameters should be regard as another source of ignorance in addition to the unconstrained model parameters. However, it is common to use approximation where hyper-parameters are chosen to maximize the model likelihood function,
+	\begin{eqnarray}
+		\ln P(y_i|\mathbf{x}_i, \theta) = -\frac{1}{2}y_i (\Sigma_y^*)^{-1}_{ij} y_j - \frac{1}{2}\ln|\Sigma_y^*| + C,
+	\end{eqnarray}
+	where, $\Sigma_y^*$ is the constrained covariance matrix applied on data points and $C$ a normalization constant. The first term favours fitting existing data, while the second term is a complexity penalty term that limits over fitting.
+	
+	\item{\bf Multivariate Output}
+	The Gaussian Process described above only predicts a scalar, however, experimental observable could be high dimensional Eq. (\ref{design-obs}). Naively, we can construct $m$ Gaussian process for each observable in Eq. (\ref{design-obs}), however, there will be much to redundancy for strongly correlated observables and it is also impractical when $m$ is large. Instead, a singular value decomposition on the observable matrix in Eq. (\ref{design-obs}) is performed and the observables are rotated to principle components. The relevant principle components that will be emulated by GP are those correspond to the first few largest singular values. They are responsible for most of the modulation of observables matrix. Therefore, by emulating just a few principle components, main features of the observable matrix are captured. Of course, real observables can be reconstructed by rotating back the truncated principle components array.
+	\end{itemize}
+	
+	\subsection{Model Calibration / Selection}
+	Suppose we have a confidence probability distribution of the model parameters before compare the model calculation to experiments, called priori probability distribution $P(\mathbf(x)^*)$, which is often a uniform distribution within a d-dimensional hypercube. 
+	By a model to data comparison, the improved probability distribution of the ``true" set of parameters, posterior probability distribution is given by the famous Bayes' theorem,
+	\begin{eqnarray}
+		P(x^*|\{\mathbf{x}_i, y_i\}, y_\textrm{exp}) \propto P(y_\textrm{exp}|\{\mathbf{x}_i, y_i\}, x^*) P(x^*),
+	\end{eqnarray}
+	It states that probability of model parameters with given training data sets $\{\mathbf{x}_i, y_i\}$ and experiments, equals the prior probability times the probability of predicting experimental data with given training data sets and model parameters.
+	We assume a Gaussian form of $P(y_\textrm{exp}|\{\mathbf{x}_i, y_i\}, x^*)$,
+	\begin{eqnarray}
+	\ln P(y_\textrm{exp}|x^*) \sim -\frac{1}{2}(y^* - y_\textrm{exp})^T\Sigma_y^{-1}(y^* - y_\textrm{exp})
+	\end{eqnarray}
+	
+The full posterior is a d-dimensional multi-variate distribution, which can be sampled from the Markov chain Monte Carlo (MCMC). Information such as marginal probability distribution and correlations can be extracted from the resulting parameter ensemble.
 	
 	
 \section{Results}
@@ -357,7 +478,7 @@ is used to obtain the final space-time distribution.
 %\end{acknowledgments}
 
 % Create the reference section using BibTeX:
-\bibliography{basename of .bib file}
+\bibliography{report2Notes}
 
 \end{document}
 %
