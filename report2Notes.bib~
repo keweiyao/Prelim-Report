@@ -1,6 +1,80 @@
 @CONTROL{REVTEX41Control}
 @CONTROL{apsrev41Control,author="08",editor="1",pages="0",title="",year="1"}
 
+@article{Berndt:2006Review,
+author = {Berndt Müller and James L. Nagle},
+title = {Results from the Relativistic Heavy Ion Collider},
+journal = {Annual Review of Nuclear and Particle Science},
+volume = {56},
+number = {1},
+pages = {93-135},
+year = {2006},
+doi = {10.1146/annurev.nucl.56.080805.140556},
+
+URL = { 
+        http://dx.doi.org/10.1146/annurev.nucl.56.080805.140556
+    
+},
+eprint = { 
+        http://dx.doi.org/10.1146/annurev.nucl.56.080805.140556
+    
+}
+
+}
+
+
+@article{Heinz:2013Review,
+author = {Ulrich Heinz and Raimond Snellings},
+title = {Collective Flow and Viscosity in Relativistic Heavy-Ion Collisions},
+journal = {Annual Review of Nuclear and Particle Science},
+volume = {63},
+number = {1},
+pages = {123-151},
+year = {2013},
+doi = {10.1146/annurev-nucl-102212-170540},
+
+URL = { 
+        http://dx.doi.org/10.1146/annurev-nucl-102212-170540
+    
+},
+eprint = { 
+        http://dx.doi.org/10.1146/annurev-nucl-102212-170540
+    
+}
+
+}
+
+@article{Huichao:2011ideal,
+  title = {200 $A$ GeV $\mathrm{Au}+\mathrm{Au}$ Collisions Serve a Nearly Perfect Quark-Gluon Liquid},
+  author = {Song, Huichao and Bass, Steffen A. and Heinz, Ulrich and Hirano, Tetsufumi and Shen, Chun},
+  journal = {Phys. Rev. Lett.},
+  volume = {106},
+  issue = {19},
+  pages = {192301},
+  numpages = {4},
+  year = {2011},
+  month = {May},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevLett.106.192301},
+  url = {http://link.aps.org/doi/10.1103/PhysRevLett.106.192301}
+}
+
+@article{Shen:2014VishNew,
+      author         = "Shen, Chun and Qiu, Zhi and Song, Huichao and Bernhard,
+                        Jonah and Bass, Steffen and Heinz, Ulrich",
+      title          = "{The iEBE-VISHNU code package for relativistic heavy-ion
+                        collisions}",
+      journal        = "Comput. Phys. Commun.",
+      volume         = "199",
+      year           = "2016",
+      pages          = "61-85",
+      doi            = "10.1016/j.cpc.2015.08.039",
+      eprint         = "1409.8164",
+      archivePrefix  = "arXiv",
+      primaryClass   = "nucl-th",
+      SLACcitation   = "%%CITATION = ARXIV:1409.8164;%%"
+}
+
 @article{Moreland:2014oya,
       author         = "Moreland, J. Scott and Bernhard, Jonah E. and Bass,
                         Steffen A.",
@@ -16,5 +90,403 @@
       archivePrefix  = "arXiv",
       primaryClass   = "nucl-th",
       SLACcitation   = "%%CITATION = ARXIV:1412.4708;%%",
+}
+
+@article{Karpenko:2014vhlle,
+title = "A dimensional viscous hydrodynamic code for relativistic heavy ion collisions ",
+journal = "Computer Physics Communications ",
+volume = "185",
+number = "11",
+pages = "3016 - 3027",
+year = "2014",
+note = "",
+issn = "0010-4655",
+doi = "http://dx.doi.org/10.1016/j.cpc.2014.07.010",
+url = "http://www.sciencedirect.com/science/article/pii/S0010465514002537",
+author = "Iu. Karpenko and P. Huovinen and M. Bleicher",
+keywords = "Quark–gluon plasma",
+keywords = "Hydrodynamics",
+keywords = "Relativity "
+}
+
+
+@article{Jonah:2015Bayesian,
+  title = {Quantifying properties of hot and dense QCD matter through systematic model-to-data comparison},
+  author = {Bernhard, Jonah E. and Marcy, Peter W. and Coleman-Smith, Christopher E. and Huzurbazar, Snehalata and Wolpert, Robert L. and Bass, Steffen A.},
+  journal = {Phys. Rev. C},
+  volume = {91},
+  issue = {5},
+  pages = {054910},
+  numpages = {15},
+  year = {2015},
+  month = {May},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.91.054910},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.91.054910}
+}
+
+@article{Wesolowski:2015Bayesian,
+      author         = "Wesolowski, S. and Klco, N. and Furnstahl, R. J. and
+                        Phillips, D. R. and Thapaliya, A.",
+      title          = "{Bayesian parameter estimation for effective field
+                        theories}",
+      year           = "2015",
+      eprint         = "1511.03618",
+      archivePrefix  = "arXiv",
+      primaryClass   = "nucl-th",
+      SLACcitation   = "%%CITATION = ARXIV:1511.03618;%%"
+}
+
+
+@article{Bass:2000:hybrid-model,
+  title = {Dynamics of hot bulk QCD matter: From the quark-gluon plasma to hadronic freeze-out},
+  author = {Bass, S. A. and Dumitru, A.},
+  journal = {Phys. Rev. C},
+  volume = {61},
+  issue = {6},
+  pages = {064909},
+  numpages = {24},
+  year = {2000},
+  month = {May},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.61.064909},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.61.064909}
+}
+
+@article{Bazavov:2014hotqcd-eos,
+  title = {Equation of state in ($2+1$)-flavor QCD},
+  author = {Bazavov, A. and Bhattacharya, Tanmoy and DeTar, C. and Ding, H.-T. and Gottlieb, Steven and Gupta, Rajan and Hegde, P. and Heller, U. M. and Karsch, F. and Laermann, E. and Levkova, L. and Mukherjee, Swagato and Petreczky, P. and Schmidt, C. and Schroeder, C. and Soltz, R. A. and Soeldner, W. and Sugar, R. and Wagner, M. and Vranas, P.},
+  collaboration = {(HotQCD Collaboration)},
+  journal = {Phys. Rev. D},
+  volume = {90},
+  issue = {9},
+  pages = {094503},
+  numpages = {25},
+  year = {2014},
+  month = {Nov},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevD.90.094503},
+  url = {http://link.aps.org/doi/10.1103/PhysRevD.90.094503}
+}
+
+@inproceedings{Loizides:2016small,
+      author         = "Loizides, Constantin",
+      title          = "{Experimental overview on small collision systems at the
+                        LHC}",
+      booktitle      = "{25th International Conference on Ultra-Relativistic
+                        Nucleus-Nucleus Collisions (Quark Matter 2015) Kobe,
+                        Japan, September 27-October 3, 2015}",
+      url            = "http://inspirehep.net/record/1424892/files/arXiv:1602.09138.pdf",
+      year           = "2016",
+      eprint         = "1602.09138",
+      archivePrefix  = "arXiv",
+      primaryClass   = "nucl-ex",
+      SLACcitation   = "%%CITATION = ARXIV:1602.09138;%%"
+}
+
+
+@article{Bjorken:1983Boost-invariant,
+  title = {Highly relativistic nucleus-nucleus collisions: The central rapidity region},
+  author = {Bjorken, J. D.},
+  journal = {Phys. Rev. D},
+  volume = {27},
+  issue = {1},
+  pages = {140--151},
+  numpages = {0},
+  year = {1983},
+  month = {Jan},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevD.27.140},
+  url = {http://link.aps.org/doi/10.1103/PhysRevD.27.140}
+}
+
+
+@article{Cooper:1974Freezeout,
+  title = {Single-particle distribution in the hydrodynamic and statistical thermodynamic models of multiparticle production},
+  author = {Cooper, Fred and Frye, Graham},
+  journal = {Phys. Rev. D},
+  volume = {10},
+  issue = {1},
+  pages = {186--189},
+  numpages = {0},
+  year = {1974},
+  month = {Jul},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevD.10.186},
+  url = {http://link.aps.org/doi/10.1103/PhysRevD.10.186}
+}
+
+
+@article{Bass:1998UrQMD-1,
+title = "Microscopic models for ultrarelativistic heavy ion collisions ",
+journal = "Progress in Particle and Nuclear Physics ",
+volume = "41",
+number = "",
+pages = "255 - 369",
+year = "1998",
+note = "",
+issn = "0146-6410",
+doi = "http://dx.doi.org/10.1016/S0146-6410(98)00058-1",
+url = "http://www.sciencedirect.com/science/article/pii/S0146641098000581",
+author = "S.A. Bass and M. Belkacem and M. Bleicher and M. Brandstetter and L. Bravina and C. Ernst and L. Gerland and M. Hofmann and S. Hofmann and J. Konopka and G. Mao and L. Neise and S. Soff and C. Spieles and H. Weber and L.A. Winckelmann and H. Stöcker and W. Greiner and Ch. Hartnack and J. Aichelin and N. Amelin"
+}
+
+@article{Bleicher:1998UrQMD-2,
+  author={M Bleicher and E Zabrodin and C Spieles and S A Bass and C Ernst and S Soff and L Bravina and M Belkacem and H Weber and H Stöcker and W
+Greiner},
+  title={Relativistic hadron-hadron collisions in the ultra-relativistic quantum molecular dynamics model},
+  journal={Journal of Physics G: Nuclear and Particle Physics},
+  volume={25},
+  number={9},
+  pages={1859},
+  url={http://stacks.iop.org/0954-3899/25/i=9/a=308},
+  year={1999},
+  abstract={Hadron-hadron (h-h) collisions at high energies are investigated in the ultra-relativistic quantum molecular dynamics (UrQMD) approach. This microscopic transport model describes the phenomenology of hadronic interactions at low and intermediate energies ( ##IMG## [http://ej.iop.org/images/0954-3899/25/9/308/img1.gif] {(sqrt(s))} <5 GeV) in terms of interactions between known hadrons and their resonances. At higher energies, ##IMG## [http://ej.iop.org/images/0954-3899/25/9/308/img1.gif] {(sqrt(s))} >5 GeV, the excitation of colour strings and their subsequent fragmentation into hadrons dominates the multiple production of particles in the UrQMD model. The model shows a fair overall agreement with a large body of experimental h-h data over a wide range of h-h centre-of-mass energies. Hadronic reaction data with higher precision would be useful to support the use of the UrQMD model for relativistic heavy-ion collisions.}
+}
+	
+@article{Bilandzic:2011Flow-calc,
+  title = {Flow analysis with cumulants: Direct calculations},
+  author = {Bilandzic, Ante and Snellings, Raimond and Voloshin, Sergei},
+  journal = {Phys. Rev. C},
+  volume = {83},
+  issue = {4},
+  pages = {044913},
+  numpages = {11},
+  year = {2011},
+  month = {Apr},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.83.044913},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.83.044913}
+}
+
+
+@article{Dave:2015mtd,
+ ISSN = {01621459},
+ URL = {http://www.jstor.org/stable/27640080},
+ abstract = {This work focuses on combining observations from field experiments with detailed computer simulations of a physical process to carry out statistical inference. Of particular interest here is determining uncertainty in resulting predictions. This typically involves calibration of parameters in the computer simulator as well as accounting for inadequate physics in the simulator. The problem is complicated by the fact that simulation code is sufficiently demanding that only a limited number of simulations can be carried out. We consier applications in characterizing material properties for which the field data and the simulator output are highly multivariate. For example, the experimental data and simulation output may be an image or may describe the shape of a physical object. We make use of the basic framework of Kennedy and O'Hagan. However, the size and multivariate nature of the data lead to computational challenges in implementing the framework. To overcome these challenges, we make use of basis representations (e.g., principal components) to reduce the dimenstionality of the problem and speed up the computations required for exploring the posterior distribution. This methodology is applied to applications, both ongoing and historical, at Los Alamos National Laboratory.},
+ author = {Dave Higdon, James Gattiker, Brian Williams, Maria Rightley},
+ journal = {Journal of the American Statistical Association},
+ number = {482},
+ pages = {570-583},
+ publisher = {[American Statistical Association, Taylor & Francis, Ltd.]},
+ title = {Computer Model Calibration Using High-Dimensional Output},
+ volume = {103},
+ year = {2008}
+}
+
+
+@article{Adam:2013IC-geo,
+  title = {Initial-state geometry and the role of hydrodynamics in proton-proton, proton-nucleus, and deuteron-nucleus collisions},
+  author = {Bzdak, Adam and Schenke, Bj\"orn and Tribedy, Prithwish and Venugopalan, Raju},
+  journal = {Phys. Rev. C},
+  volume = {87},
+  issue = {6},
+  pages = {064906},
+  numpages = {10},
+  year = {2013},
+  month = {Jun},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.87.064906},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.87.064906}
+}
+
+
+@article{Huichao:2008hydro2d,
+  title = {Causal viscous hydrodynamics in 2 + 1 dimensions for relativistic heavy-ion collisions},
+  author = {Song, Huichao and Heinz, Ulrich},
+  journal = {Phys. Rev. C},
+  volume = {77},
+  issue = {6},
+  pages = {064901},
+  numpages = {25},
+  year = {2008},
+  month = {Jun},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.77.064901},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.77.064901}
+}
+
+
+@article{Kharzeev:2005CGC,
+title = "Color glass condensate at the LHC: hadron multiplicities in pp, pA and \{AA\} collisions ",
+journal = "Nuclear Physics A ",
+volume = "747",
+number = "2–4",
+pages = "609 - 629",
+year = "2005",
+note = "",
+issn = "0375-9474",
+doi = "http://dx.doi.org/10.1016/j.nuclphysa.2004.10.018",
+url = "http://www.sciencedirect.com/science/article/pii/S0375947404010991",
+author = "Dmitri Kharzeev and Eugene Levin and Marzia Nardi"
+}
+
+@article{Larry:2015CGC-fluct,
+title = "Fluctuations and the Participant Number Dependence of pA Collisions",
+year           = "2015",
+eprint         = "1412.4708",
+archivePrefix  = "arXiv",
+primaryClass   = "nucl-th",
+author = {McLerran, Larry and Praszalowicz, Michal}
+}
+
+@article{Schenke:2014smallsys,
+  title = {Eccentric Protons? Sensitivity of Flow to System Size and Shape in $p+p$, $p+\mathrm{Pb}$, and $\mathrm{Pb}+\mathrm{Pb}$ Collisions},
+  author = {Schenke, Bj\"orn and Venugopalan, Raju},
+  journal = {Phys. Rev. Lett.},
+  volume = {113},
+  issue = {10},
+  pages = {102301},
+  numpages = {5},
+  year = {2014},
+  month = {Sep},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevLett.113.102301},
+  url = {http://link.aps.org/doi/10.1103/PhysRevLett.113.102301}
+}
+
+
+@inproceedings{Denicol:2015vn-eta,
+      author         = "Denicol, Gabriel and Monnai, Akihiko and Ryu, Sangwook
+                        and Schenke, Bjoern",
+      title          = "{New insights from 3D simulations of heavy ion
+                        collisions}",
+      booktitle      = "{25th International Conference on Ultra-Relativistic
+                        Nucleus-Nucleus Collisions (Quark Matter 2015) Kobe,
+                        Japan, September 27-October 3, 2015}",
+      url            = "http://inspirehep.net/record/1411485/files/arXiv:1512.08231.pdf",
+      year           = "2015",
+      eprint         = "1512.08231",
+      archivePrefix  = "arXiv",
+      primaryClass   = "nucl-th",
+      SLACcitation   = "%%CITATION = ARXIV:1512.08231;%%"
+}
+
+@article{Pitor:2009IC3d-1,
+  title = {Rapid hydrodynamic expansion in relativistic heavy-ion collisions},
+  author = {Bo\ifmmode \dot{z}\else \.{z}\fi{}ek, Piotr and Wyskiel, Iwona},
+  journal = {Phys. Rev. C},
+  volume = {79},
+  issue = {4},
+  pages = {044916},
+  numpages = {10},
+  year = {2009},
+  month = {Apr},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.79.044916},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.79.044916}
+}
+
+@article{Wilke:2015AdS-CFT-IC3d,
+  title = {Rapidity dependence in holographic heavy ion collisions},
+  author = {van der Schee, Wilke and Schenke, Bj\"orn},
+  journal = {Phys. Rev. C},
+  volume = {92},
+  issue = {6},
+  pages = {064907},
+  numpages = {5},
+  year = {2015},
+  month = {Dec},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.92.064907},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.92.064907}
+}
+
+@article{PHENIX:2014dAu,
+  title = {Measurement of Long-Range Angular Correlation and Quadrupole Anisotropy of Pions and (Anti)Protons in Central $d+\mathrm{Au}$ Collisions at $\sqrt{{s}_{NN}}=200$ GeV},
+  author = {PHENIX Collaboration},
+  collaboration = {PHENIX Collaboration},
+  journal = {Phys. Rev. Lett.},
+  volume = {114},
+  issue = {19},
+  pages = {192301},
+  numpages = {8},
+  year = {2015},
+  month = {May},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevLett.114.192301},
+  url = {http://link.aps.org/doi/10.1103/PhysRevLett.114.192301}
+}
+
+@article{PHYNIX:2015He3Au,
+  title = {Measurements of Elliptic and Triangular Flow in High-Multiplicity $^{3}\mathrm{He}+\mathrm{Au}$ Collisions at $\sqrt{{s}_{NN}}=200\text{  }\mathrm{GeV}$},
+  author = {},
+  collaboration = {PHENIX Collaboration},
+  journal = {Phys. Rev. Lett.},
+  volume = {115},
+  issue = {14},
+  pages = {142301},
+  numpages = {9},
+  year = {2015},
+  month = {Sep},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevLett.115.142301},
+  url = {http://link.aps.org/doi/10.1103/PhysRevLett.115.142301}
+}
+
+
+@article{RHIC:2005dAu-dNdy,
+  title = {Scaling of charged particle production in $d+\mathrm{Au}$ collisions at $\sqrt{{s}_{\mathit{NN}}}=200\phantom{\rule{0.3em}{0ex}}\mathrm{GeV}$},
+  author = {Back, B. B. and Baker, M. D. and Ballintijn, M. and Barton, D. S. and Becker, B. and Betts, R. R. and Bickley, A. A. and Bindel, R. and Busza, W. and Carroll, A. and Decowski, M. P. and Garc\'{\i}a, E. and Gburek, T. and George, N. and Gulbrandsen, K. and Gushue, S. and Halliwell, C. and Hamblen, J. and Harrington, A. S. and Henderson, C. and Hofman, D. J. and Hollis, R. S. and Ho\l{}y\ifmmode \acute{n}\else \'{n}\fi{}ski, R. and Holzman, B. and Iordanova, A. and Johnson, E. and Kane, J. L. and Khan, N. and Kulinich, P. and Kuo, C. M. and Lee, J. W. and Lin, W. T. and Manly, S. and Mignerey, A. C. and Nouicer, R. and Olszewski, A. and Pak, R. and Park, I. C. and Pernegger, H. and Reed, C. and Roland, C. and Roland, G. and Sagerer, J. and Sarin, P. and Sedykh, I. and Skulski, W. and Smith, C. E. and Steinberg, P. and Stephans, G. S. F. and Sukhanov, A. and Tonjes, M. B. and Trzupek, A. and Vale, C. and Nieuwenhuizen, G. J. van and Verdier, R. and Veres, G. I. and Wolfs, F. L. H. and Wosiek, B. and Wo\ifmmode \acute{z}\else \'{z}\fi{}niak, K. and Wys\l{}ouch, B. and Zhang, J.},
+  journal = {Phys. Rev. C},
+  volume = {72},
+  issue = {3},
+  pages = {031901},
+  numpages = {5},
+  year = {2005},
+  month = {Sep},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.72.031901},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.72.031901}
+}
+
+
+@article{CMS:2015EP-decorr,
+  title = {Evidence for transverse-momentum- and pseudorapidity-dependent event-plane fluctuations in PbPb and $p\mathrm{Pb}$ collisions},
+  author = {CMS Collaboration},
+  collaboration = {CMS Collaboration},
+  journal = {Phys. Rev. C},
+  volume = {92},
+  issue = {3},
+  pages = {034911},
+  numpages = {26},
+  year = {2015},
+  month = {Sep},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.92.034911},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.92.034911}
+}
+
+@article{ALICE:2014pPb,
+  title = {Multiparticle azimuthal correlations in $p$-Pb and Pb-Pb collisions at the CERN Large Hadron Collider},
+  author = { },
+  collaboration = {ALICE Collaboration},
+  journal = {Phys. Rev. C},
+  volume = {90},
+  issue = {5},
+  pages = {054901},
+  numpages = {16},
+  year = {2014},
+  month = {Nov},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevC.90.054901},
+  url = {http://link.aps.org/doi/10.1103/PhysRevC.90.054901}
+}
+
+
+@article{CMS:2015-pPb,
+  title = {Evidence for Collective Multiparticle Correlations in p-Pb Collisions},
+  author = {CMS Collaboration},
+  collaboration = {CMS Collaboration},
+  journal = {Phys. Rev. Lett.},
+  volume = {115},
+  issue = {1},
+  pages = {012301},
+  numpages = {17},
+  year = {2015},
+  month = {Jun},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevLett.115.012301},
+  url = {http://link.aps.org/doi/10.1103/PhysRevLett.115.012301}
 }
 
