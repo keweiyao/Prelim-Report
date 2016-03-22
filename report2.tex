@@ -326,11 +326,15 @@ is used to obtain the final space-time distribution.
 		
 	Note that this substitution leaves the skewness and kurtosis intact, while contribution from higher order cumulants are included systematically.
 	The distribution reconstructed with regularization produce and is positive and well behaved over a wide range of rapidity and skewness.
+	
+	Fig. (\ref{3d-example}) are a sample 3d initial condition of a single PbPb event, projecting onto X-Y plane at mid-rapidity, to X-$\eta_s$ plane at $Y = 0$ and to Y-$\eta_s$ plane at $X = 0$. We can see that the transverse entropy distribution fluctuates due to randomized nucleon position, and the longitudinal profile distorted forward/backward according to the asymmetry of local incoming matter from target and projectile. 
+	
+	\includegraphics[width=1.0\columnwidth]{pics/3d-example.png}\label{3d-example}
 
 \section{Model to Data Comparison}
 	The ultimate goal is to confront the calculations of hybrid model with different initial conditions to the experimental measurements, which will improve out knowledge of initial condition and expand model capability to look for rapidity related observables.
 	Here the procedure of a model to data comparison with Bayesian analysis summarized. 
-	\subsection{Parameter design}
+	\subsection{Parameter design} 
 	Hybrid model for heavy ion physics usually contains multiple parameters. 
 	A 3d extension of the existing initial conditon introduce $4\sim5$ more parameters. 
 	This constitutes a high dimensional parameter space $(p_1, p_2, ..., p_n)$, which makes it impractical to uniformly search the space. 
@@ -467,6 +471,12 @@ The full posterior is a d-dimensional multi-variate distribution, which can be s
 	The hyperparameters within Gaussian process is optimized by maximizing the model likelihood.
 	Finally, using MCMC procedure the high dimensional posterior distribution is obtained as an ensemble of equilibrated parameters sets.
 	
+	It should be noted that measurements of p+Pb and Pb+Pb are conducted at different energies ($\sqrt{s}$ = 5.02 TeV/A and 2.76/A TeV respectively). 
+	Because phenomenological parameters generally change with $\sqrt{s}$, it is not fully consistent to compare model to a combined set experiment observables at different energies.
+	Of course we may assume that the parameters do not change drastically by increasing $\sqrt{s}$ from 2.76 TeV/A to 5.02 TeV/A since they are much higher than other interested scales.
+	But for consistence, we run two model to data comparisons for p+Pb and Pb+Pb systems separately.
+	With the coming data of Pb+Pb at the same energy as p+Pb, a  constraint combining measurements of the two systems is possible.
+	
 	Here we present the priori and posterior distribution of the observable $\mathrm{d}S/\mathrm{d}\eta_s$, where the green dots are points extracted from experimental measurements. 
 	The blue thin lines characterise the model output distribution with little knowledge of the distribution parameters (priori distribution), and the red lines are model output with model-to-data constraint on parameters (posterior).
 	
@@ -481,16 +491,100 @@ The full posterior is a d-dimensional multi-variate distribution, which can be s
 	To examine to how well the phenomenological parameters are constrained by experiments, we marginalize the posterior distribution of model parameters. 
 	In Fig. (\ref{corner-PbPb}) and (\ref{corner-pPb}) we present the so-called corner plots of the posterior distribution. 
 	The plots on the diagonal are the marginalized distribution on a single parameter, while the off-diagonal plots shows the correlation between two parameters. 
-	First, we note that with only four centrality bins the PbPb data does not constrains the fluctuation $k$ very well; on the contrary the pPb data are much more sensitive to the fluctuation, which yields marginalized distribution peaked around 3.
+	Here are some important observations from the marginalized  posterior distribution:
+	\begin{itemize}
+	\item PbPb data, with only four centrality bins, does not constrains the fluctuation $k$ very well; pPb data are much more sensitive to the fluctuation, which yields a distribution of $k$ around 3.
+	\item pPb analysis is not very sensitive to the Jacobi factor and favours relatively large values; while PbPb analysis shows a peaked distribution around $0.655$. 
+	The present and the previous observation indicate that a combined analysis on both systems will benefit from the complementary constraint power of the two system.
+	\item The marginalized posterior for standard deviation ($\sigma$) of initial entropy pseudo-rapidity distribution favours a larger value in p+Pb than that in Pb+Pb analysis. 
+	This difference is what we expected since collision at higher energies should result in a broader pseudo-rapidity distribution. 
+	\item  The mean ($\mu$) and skewness coefficients $\gamma$ are an anti-correlated, since they are competing sources of longitudinal asymmetry. 
+	This correlation broadens the marginalized posterior distribution for either $\mu$ or $\gamma$. 
+	But interestingly, a combined analysis may result in a posterior favours unity $\mu$, which is naturally that mean rapidity of the asymmetrically produced matter is close to the center of mass rapidity of matter before the collision.
+	\end{itemize}
+	
 	\includegraphics[width=\columnwidth]{pics/corner-PbPb.pdf}
 	
-	\includegraphics[width=\columnwidth]{pics/corner-pPb.pdf}
-
+	\includegraphics[width=\columnwidth]{pics/corner-pPb.pdf}		
 	
+	\subsection{Full Time Evolution and Available Observables}
+	We take two sets of most probable parameters from the  posterior distribution and run it through hydrodynamics evolution and hadronic phase. 
+	The switching temperature $T_s = 0.148 \textrm{GeV}$ from hydrodynamic to Boltzmann transport description is chosen slightly below the pseudo-critical temperature of the equation of state $T_c = 0.154 \textrm{GeV}$ The transport coefficients are taken as flows:
+	\begin{eqnarray}
+		\frac{\eta}{s}  & = & 
+		\left\{ \begin{array}{l}
+		0.08 + 0.13 \frac{T - T_c}{T_c} \phantom{0.5} , T > T_c \\
+		0.5 \phantom{0.08 + 0.13 \frac{T - T_c}{T_c}}, T < T_c
+		\end{array}
+		\right.	\\
+		\frac{\zeta}{s} &=&  0.
+	\end{eqnarray}
+	Thus, there is no bulk viscosity for simplicity and the shear viscosity over entropy ratio parametrisation has a minimum at $T_c$ and slowly increase with temperature linearly in the QGP phase, while remains constant in hadronic phase.
+		
+	The output of the full time evolution is a list of particles with their final state momentum and type information.
+	Apart from charged particle pseudo-rapidity density, more soft observables can be extracted from the final state particles as listed here,
+	\begin{itemize}
+	\item Transverse energy pseudo-rapidity distribution.
+	\item Identified particle transverse momentum spectra.
+	\item Particle ratios.
+	\item Directed flows, which may be sensitive to different schemes of initial longitudinal entropy deposition according to \citep{Pitor:2009IC3d-1}.
+	\item Anisotropic flows, including $p_\textrm{T}$ integrated / differential flows, correlation between different flow harmonics and event by event flow distribution. Recently as pointed in \citep{Denicol:2015vn-eta}, anisotropic flow as function of rapidity are sensitive to the temperature dependence of $\eta/s$, we would like to examine how stable they are against the uncertainties of 3d initial condition.
+	\item Event plane decorrelation and twisting effects \citep{CMS:2015EP-decorr}.
+	\item Forward backward asymmetry and $\mathrm{d}N /\mathrm{d}\eta$ longitudinal fluctuation.
+	\end{itemize}
 	
+	For the moment, we focus on the charged particle pseudo-rapidity distribution, $p_T$ integrated flow at mid-rapidity and flow as function of pseudo-rapidity only. 
+	Flow coefficients are calculated using the cumulant method described in \citep{Bilandzic:2011Flow-calc} with the same kinetic cuts as experimental measurements.
 	
-	\subsection{Evolution Response and Observables}
-\section{Outlook and Summary}
+	Fig. (\ref{PbPb-dNdy-calc}) and  (\ref{pPb-dNdy-calc}) shows the charged particle distribution after full time evolution. 
+	It agrees very well with the experimental measurement over wide centrality class. 
+	Fig. (\ref{PbPb-vn-calc}) shows integrated flow calculation as function of centrality. 
+	$2^{nd}$, $3^{rd}$, $4^{th}$ and $6^{th}$ order flow harmonics are calculated from two particle correlation. $2^{nd}$ order four particle correlation is also shown for comparison.
+	The $\eta$ dependence of $v_2\{2\}$ is shown in fig (\ref{PbPb-vn-eta-calc}). The results shows a weak pseudo-rapidity dependence of $v_2\{2\}$, as is suggest by ATLAS measurements \citep{ATLAS:2014vn-eta}.
+	We also calculated directed flow as shown in fig. (\ref{RUN-1-PbPb-v1-eta}). 
+	However, the LHC method of measuring directed flow is by correlating particles emitted from the fireball with the spectator distribution.
+	In the present calculation, no spectator is provided, so we just present $\langle\langle  p_x/p_T \rangle\rangle$ and $\langle\langle p_y/p_T\rangle\rangle$ to estimate the magnitude of directed flow and check if our calculation works qualitatively.
+	Our result show a linear $v_1-\eta$ relation with negative slope and weak centrality dependence.
+	These qualitative features agree with directed flow measurement by ALICE \citep{ALCIE:v1-eta}.
+	\begin{figure}
+  	\centering
+	\includegraphics[width=\columnwidth]{pics/RUN-1-PbPb-dNdy-eta.png}
+  	\caption{}
+  	\label{PbPb-dNdy-calc}
+	\end{figure}
+	
+	\begin{figure}
+  	\centering
+	\includegraphics[width=\columnwidth]{pics/RUN-1-pPb-dNdy-eta.png}
+	\caption{}
+  	\label{pPb-dNdy-calc}
+	\end{figure}
+	
+	\begin{figure}
+  	\centering
+	\includegraphics[width=\columnwidth]{pics/new-PbPb-vnm-p1.png}	
+	\caption{}
+  	\label{PbPb-vn-calc}
+	\end{figure}
+	
+	\begin{figure}
+  	\centering
+	\includegraphics[width=\columnwidth]{pics/new-PbPb-vnm-eta-p1.png}
+	\caption{}
+  	\label{PbPb-vn-eta-calc}
+	\end{figure}
+	
+	\begin{figure}
+  	\centering
+	\includegraphics[width=\columnwidth]{pics/RUN-1-PbPb-v1-eta.png}
+	\caption{}
+  	\label{RUN-1-PbPb-v1-eta}
+	\end{figure}
+	
+	These presented results are by no means our final purposes, but just a demonstration that 3d extended TRENTo initial condition combined with state-of-art hybrid model is able to capture the qualitative feature of a large variety of experimental observables.
+	With the Bayesian statistical tools the model has the potential to describe the experimental data quantitatively and more importantly, constrain our knowledge of initial state and QGP transport properties simultaneously.
+	
+\section{Summary and Outlooks}
 % If in two-column mode, this environment will change to single-column
 % format so that long equations can be displayed. Use
 % sparingly.

@@ -394,7 +394,7 @@ author = {McLerran, Larry and Praszalowicz, Michal}
 
 @article{PHENIX:2014dAu,
   title = {Measurement of Long-Range Angular Correlation and Quadrupole Anisotropy of Pions and (Anti)Protons in Central $d+\mathrm{Au}$ Collisions at $\sqrt{{s}_{NN}}=200$ GeV},
-  author = {PHENIX Collaboration},
+  author = {},
   collaboration = {PHENIX Collaboration},
   journal = {Phys. Rev. Lett.},
   volume = {114},
@@ -443,7 +443,7 @@ author = {McLerran, Larry and Praszalowicz, Michal}
 
 @article{CMS:2015EP-decorr,
   title = {Evidence for transverse-momentum- and pseudorapidity-dependent event-plane fluctuations in PbPb and $p\mathrm{Pb}$ collisions},
-  author = {CMS Collaboration},
+  author = {},
   collaboration = {CMS Collaboration},
   journal = {Phys. Rev. C},
   volume = {92},
@@ -459,7 +459,7 @@ author = {McLerran, Larry and Praszalowicz, Michal}
 
 @article{ALICE:2014pPb,
   title = {Multiparticle azimuthal correlations in $p$-Pb and Pb-Pb collisions at the CERN Large Hadron Collider},
-  author = { },
+  author = {},
   collaboration = {ALICE Collaboration},
   journal = {Phys. Rev. C},
   volume = {90},
@@ -476,7 +476,7 @@ author = {McLerran, Larry and Praszalowicz, Michal}
 
 @article{CMS:2015-pPb,
   title = {Evidence for Collective Multiparticle Correlations in p-Pb Collisions},
-  author = {CMS Collaboration},
+  author = {},
   collaboration = {CMS Collaboration},
   journal = {Phys. Rev. Lett.},
   volume = {115},
@@ -490,3 +490,22 @@ author = {McLerran, Larry and Praszalowicz, Michal}
   url = {http://link.aps.org/doi/10.1103/PhysRevLett.115.012301}
 }
 
+@article{ATLAS:2014vn-eta,
+      author         = "Aad, Georges and others",
+      title          = "{Measurement of the centrality and pseudorapidity
+                        dependence of the integrated elliptic flow in lead-lead
+                        collisions at $\sqrt{s_{\mathrm {NN}}}=2.76$ TeV with the
+                        ATLAS detector}",
+      collaboration  = "ATLAS",
+      journal        = "Eur. Phys. J.",
+      volume         = "C74",
+      year           = "2014",
+      number         = "8",
+      pages          = "2982",
+      doi            = "10.1140/epjc/s10052-014-2982-4",
+      eprint         = "1405.3936",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "CERN-PH-EP-2014-065",
+      SLACcitation   = "%%CITATION = ARXIV:1405.3936;%%"
+}
