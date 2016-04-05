@@ -37,7 +37,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
-
+%\linespread{2}
 \begin{document}
 
 % Use the \preprint command to place your local institutional report
@@ -48,7 +48,7 @@
 %\preprint{}
 
 %Title of paper
-\title{Beyond Boost-invariant Initial Condition for Relativistic Heavy Ion Collision Simulation}
+\title{Rapidity dependent initial conditions for relativistic heavy-ion collisions}
 
 % repeat the \author .. \affiliation  etc. as needed
 % \email, \thanks, \homepage, \altaffiliation all apply to the current
@@ -77,7 +77,7 @@
 \date{\today}
 
 \begin{abstract}
-Abstract:
+In modern simulations of the time evolution of ultra-relativistic heavy-ion collisions, relativistic viscous hydrodynamics is the central part to almost all models. Hydrodynamics solves a set of partial differential equations of energy momentum and charge conservation, which also requires a knowledge of initial condition. We extend the previously developed 2d initial condition model TRENTo to 3d by adding longitudinal dependence. Different initial entropy deposition schemes are parametrized in a simple and flexible way. Using Bayesian analysis, we perform model-to-data comparison on the initial condition model and put crude constraints on model parameters. It suggests that initial longitudinal entropy deposition favours a slightly tilted profile centred around the center-of-mass rapidity of the local projectile and target densities. Moreover, our extended 3d initial condition model combined with state-of-the-art dynamic modelling, captures the qualitative features of a variety of experimental observables including longitudinal dependent observables that are not accessible in 2d formulation. This means the model has the potential to constrain model parameters and transport properties of quark-gluon plasma (QGP) produced in heavy ion collisions via an enlarged set of experimental observables.
 \end{abstract}
 
 % insert suggested PACS numbers in braces on next line
@@ -91,201 +91,278 @@ Abstract:
 % body of paper here - Use proper section commands
 % References should be done using the \cite, \ref, and \label commands
 \section{Introduction}
-	Ultra-relativistic heavy ion collision produces the hottest medium in the lab since the first operation of RHIC at Brookhaven National Lab. 
-	The transient hot and dense state of matter with a life time of femtoseconds is known as quark-gluon plasma (QGP) \cite{Berndt:2006Review}.
-	Viscous hydrodynamics modelling with thermalization at early stages very well describes the experimental data \cite{Heinz:2013Review}.
-	An unexpectedly low shear viscosity to entropy ratio $\eta/s$, close to the quantum lower bound from AdS/CFT correspondence, is needed to explain the observed momentum anisotropy \cite{Huichao:2011ideal}.
+	Ultra-relativistic heavy-ion collisions produce the hottest medium in the lab starting with the first operation of RHIC \citep{Arsene:2004fa, Adams:2005dq} at Brookhaven National Lab and later at the Large Hadron Collider (LHC) \citep{Aamodt:2010pa}. 
+	In these experiments, heavy nuclei such as gold, uranium and lead are accelerated to nearly the speed of light and collide head on, producing extremely dense and hot matter.
+	 
+	The dominant interaction in such a process is the strong interaction, described by Quantum Chromodynamics (QCD).
+	While Quantum Electrodynamics describes the motion of electrons and photons, QCD governs the fundamental degrees of freedom carrying color charge, quarks and gluons.	
+	QCD is most known for its properties of asymptotic freedom and confinement \citep{Gross:1973id, Politzer:1973fx}. 
+	Coupling constant of asymptotic theory decreases logarithmically with the increase of energy scale, which also suggests an increase of interaction strength at lower energy.
+	In fact, interactions between color charges are so strong in the low energy regime, that individual quarks and gluons have never been observed directly.
+	What can be observed experimentally are always bound states of quarks and gluons (hadrons) with zero net color charge.
+
+	However, there is a possibility that in a highly energetic environment (high temperature or density), the interaction strength decreases due to asymptotic freedom such that quarks and gluons become liberated from hadrons and form the natural degrees of freedom of the system \citep{Collins:1974ky}. 
+	This hot and dense state of matter is known as quark-gluon plasma (QGP). 
+	According to recent lattice simulations of QCD \cite{Bhattacharya:2014ara}, this transition from hadronic matter to QGP at low density and high temperature is a cross-over phase transition with a pseudo-critical temperature $T \sim 155$ MeV, above which the QGP phase is expected.
+	The estimated temperature achieved at RHIC and LHC $T \sim 300$ MeV \citep{Adare:2009qk, Adam:2015lda} is well above this pseudo-critical temperature.	
+	In fact, many studies \cite{Muller:2006ee} indicate that QGP is created in ultra-relativistic heavy ion collision at RHIC and LHC as early as $1$ fm/c after the collision.
+	
+	This new state of matter comes with astonishing properties.
+	Relativistic viscous hydrodynamics which necessitates thermal equilibrium at early stage of collision very well describes the soft observables of experimental data \cite{Heinz:2013th}.
+	An unexpectedly low shear viscosity to entropy ratio $\eta/s \sim 0.08 - 0.20$ is needed to explain the observed final state momentum anisotropy \cite{Song:2010mg}. This value is very close to the quantum lower bound $\eta/s = \frac{1}{4\pi} \sim 0.08$ for strongly coupled field theory conjectured by AdS/CFT correspondence \citep{Kovtun:2004de}. 
 	The system therefore behaves like an almost perfect liquid, revealing the strongly coupled nature of the problem.
-	This motivates large effort to quantify the transport properties of this new state of matter.
+	This motivates a large effort to quantify shear viscosity and other transport properties of QGP by either direct calculation or model-to-data parameter extraction \citep{Shen:2015msa}.  
 	
-	Modelling is essential to the field of heavy ion collision. 
-	Since quarks and gluons always hadronize and it is hadrons and decay products that can be detected, it requires modelling system time evolution of both QGP and hadron final states in order to interpret experimental data. 
-	In addition, due to the lack of knowledge of initial stages of the collision such as nuclear wave function and how the system undergoes fast thermalization and isotropization, modelling out ignorance of initial condition are also indispensable.
+	Since quarks and gluons always hadronize and only the hadrons and decay products can be detected, comparison of theoretical calculation with experiments requires model of the time evolution of both the QGP and hadronic final states.
+	In addition, due to the lack of knowledge of initial stages of the collision such as the many-body nuclear wave function and how the system undergoes fast thermalization and isotropization, simple models for the initial condition and pre-equilibrium dynamics are also indispensable.
 	
-\section{``Standard Model" of Soft Physics}
-	The state-of-the-art modelling of soft physics in relativistic heavy ion collision consists of four stages \citep{Bass:2000:hybrid-model, Shen:2014VishNew}, 
+\section{Modelling of soft physics}
+	The state-of-the-art modelling of soft physics in relativistic heavy ion collision consists of four stages \citep{Bass:2000ib, Shen:2014vra},
+	\begin{figure}
+	\begin{center}
+	\includegraphics[width=\columnwidth]{pics/evo.jpg}
+	\caption{Illustration of multi-stages of a relativistic heavy-ion collision event (Side-view). From left to righ: incoming nuclei, initial state and pre-equilibrium stage, hydrodynamic expansion of QGP, hadronization and hadronic re-scattering. The credit of this figure belongs to Steffen Bass.}
+	\label{hybrid}
+	\end{center}
+	\end{figure}
 	\begin{itemize}
-		\item Initial condition. 		
-		Initial condition generate the energy/entropy, baryon density distribution and local flow velocity immediately after the colliding of two nuclei.
-		It has been noted that the nucleon position fluctuation is essential to account for higher order anisotropic flows observed in experiments;
-		so, instead of using average nuclear density such as a Wood-Saxon distribution, present simulations uses event-by-event nuclear configuration by sampling individual nucleons inside nuclei.
+		\item Initial conditions. 		
+		Initial condition models generate the energy/entropy, baryon density distribution and local flow velocity immediately after the penetration of two nuclei.
+		It has been noted that fluctuations in the positions of nucleons are essential to account for higher-order anisotropic flow observed in experiment;
+		so, instead of using average nuclear density such as a Wood-Saxon distribution, present simulations use event-by-event nuclear configurations by sampling individual nucleons inside the colliding nuclei.
 		
-		The system at $\tau = 0$ should be far from thermal equilibrium; however, in less than $1 \textrm{ fm/c}$, it is believed to be close to local thermal equilibrium.
-		The dynamics for this transient pre-equilibrium stages is still not clear.
-		So, most models such as MC-Glauber, MC-KLN, EKRT, and TRENTo generate initial condition at certain proper time $\tau\sim 0.6\textrm{fm/c}$, assuming local thermalization.
-		Other models such as IP-glasma model and free-streaming/sudden thermalize model also include pre-equilibrium dynamics.
+		The system at proper time $\tau = 0$ fm/c should be far from thermal equilibrium; however, in less than $1 \textrm{ fm/c}$, it is believed to be close to local thermal equilibrium.
+		The dynamics for this transient pre-equilibrium stage is still not clear.
+		So most models such as MC-Glauber, MC-KLN, EKRT, and TRENTo generate initial condition at certain proper time $\tau\sim 0.6 \textrm{ fm/c}$, assuming local thermalization \citep{Miller:2007ri, Drescher:2006ca, Eskola:1999fc, Moreland:2014oya}.
+		Other models such as the IP-glasma model \citep{Schenke:2012wb} and free-streaming/sudden thermalize model \citep{Liu:2015nwa} include pre-equilibrium dynamics.
 		
-		\item Hydrodynamical expansion of QGP. 
+		\item Relativistic fluid dynamics. 
 		Relativistic viscous hydrodynamics describes the expansion of QGP by solving energy-momentum and charge conservation,
 		\begin{eqnarray}
 			\partial_\nu T^{\mu\nu} &=& 0, \\
 			\partial_\nu N^{\nu} &=& 0,
 		\end{eqnarray}
-		with equation of state $p = p(\epsilon, n_B)$ to close the equations. 
+		with an equation of state $p = p(\epsilon, n_B)$ to close the equations. 
 		
-		Hydrodynamics translates spatial anisotropy of initial condition into momentum space anisotropy reproducing the famous anisotropic flows observed in experiments. 
+		Hydrodynamics translates initial state spatial anisotropy into final state momentum-space anisotropy, which is measured in experiments using anisotropic flow observables.
+		This can be understood qualitatively from Fig. (\ref{almond}) that an almond shaped blob of thermalized medium has lager pressure gradients in the direction of its short axis than along its long axis, therefore the medium will undergoes a faster expansion in the x-direction than in the y-direction, producing momentum-space anisotropy. 
+		\begin{figure}
+		\begin{center}
+		\includegraphics[width=\columnwidth]{pics/almond.png}
+		\caption{Left: in the xy plane, two colliding nuclei are denoted by blue dash circle, the deformed red blob in the middle is the deposited energy after the collision to the two nuclei. Right: isobaric contours. System will expand stronger in the short axis direction due to larger pressure gradient.}\label{almond}
+		\end{center}
+		\end{figure}
+		
 		Flow observables are sensitive to the transport coefficients such as shear and bulk viscosity in hydrodynamics simulation, which provides tight constraints on the transport properties of QGP.
 		
-		In the present calculation, a 3+1 D viscous hydrodynamics is employed \citep{Karpenko:2014vhlle} with 2+1 flavour QCD equation of state from lattice calculation \cite{Bazavov:2014hotqcd-eos}.
+		In the present calculation, 3+1 D relativistic viscous hydrodynamics is employed \citep{Karpenko:2013wva} with a 2+1 flavour QCD equation of state from lattice calculation \cite{Bazavov:2014pvz}.
 		
 
 		\item Statistical hadronization. 
-		As temperature drops and hydrodynamics does not apply, the system is particularized by statistical sampling hadrons from particle distribution function. 
-		Under the assumption of sudden hadronization on a hyper-surface, particles are sampled from the Cooper-Frye formula \citep{Cooper:1974Freezeout},
+		As temperature drops and hydrodynamics ceases to apply, the system is particularized by the statistical sampling of hadrons from particle distribution functions. 
+		Under the assumption of sudden hadronization along an isothermal hyper-surface, particles are sampled from the Cooper-Frye formula \citep{Cooper:1974mv},
 		\begin{eqnarray}
 			E\frac{\mathrm{d}N_i}{\mathrm{d}^3p} = \int_\Sigma f_i(x, p)p^\mu\mathrm{d}^3\sigma_\mu,
 		\end{eqnarray}
-		where $f_i$ is the phase space distribution type-``i" particle and $\mathrm{d}^3\sigma_\mu$ is the hyper-surface element.
+		where $f_i$ is the phase space distribution of type-``i" particle and $\mathrm{d}^3\sigma_\mu$ is the hyper-surface element.
 			
 		\item Final state scattering. 
 		The system after hadronization is still dense enough to allow hadronic scattering. 
-		Transport model such as UrQMD is utilized to solve the Boltzmann equation \citep{Bass:1998UrQMD-1, Bleicher:1998UrQMD-2},
+		Transport models such as UrQMD are utilized to solve the Boltzmann equation \citep{Bass:1998ca, Bleicher:1999xi},
 		\begin{eqnarray}
 			\frac{\mathrm{d}f_i(x, p)}{\mathrm{d}t} = C_i(x, p),
 		\end{eqnarray}
-	where $C_i$ describes the gain and loss of particle of type-``i" due to collisions. 
+	where $C_i$ describes the gain and loss of type-``i" particles due to collisions. 
 	\end{itemize}
 	
 
 
-\section{Collision of Large / Small Systems}
-The first ultra-relativistic experimental was conducted at RHIC with top energy $200 \textrm{ GeV/A}$. 
-Later, heavy ion program at LHC increase this energy to $\sqrt{s} = 2.76 \textrm{ TeV/A}$. 
+\section{Collision of large / small systems}
+The first ultra-relativistic experimental was conducted at RHIC with top energy $\sqrt{s} = 200 \textrm{ GeV/A}$. 
+Later, the heavy-ion program at LHC increases this energy to $\sqrt{s} = 2.76 \textrm{ TeV/A}$. 
 Apart from a wide range of energies, various systems are examined as well,
 \begin{center}
 	\begin{tabularx}{0.5\textwidth}{c *{3}{Y}}
 	\toprule[1pt]
 	System 		& LHC 		 &	RHIC\\
 	\midrule[0.5pt]
-	Symmetric 	& p + p		 & 	 p + p \\
-			 	& Pb + Pb	 & 	 Au + Au \\
-			 	&			 & 	 U + U \\
+	Baseline	 	& p + p		 & 	 p + p \\
+	\midrule[0.5pt]
+	Large and		 	& Pb + Pb	 & 	 Au + Au \\
+	symmetric		 	&			 & 	 U + U \\
 			 	&			 & 	 Cu + Cu \\
-	Asymmetric 	& p + Pb	 	 & 	 p + Au \\
-			 	&			 & 	 d + Au \\
+	\midrule[0.5pt]
+	Small and 	& p + Pb	 	 & 	 p + Au \\
+	asymmetric		 	&			 & 	 d + Au \\
 			 	&			 & 	 ${}^3$He + Au \\
-			 	&			 & 	 Cu + Au \\
 	\bottomrule[1pt]
 	\end{tabularx}
 \end{center}
-It was expected that the QGP will be created in large system collision and is not important in small system such as p+Pb, where cold nuclear matter effect can be studied.
+It was expected that the QGP would be created in large, dense systems (AA collisions) and was not expected to be important in small system such as p+Pb (pA collisions), where cold nuclear matter effects are typically studied.
 
-The observation of azimuthal anisotropy in agree with hydrodynamic calculation confirms the existence of a strongly coupled QGP phase in large system; however, similar phenomena was also observed in small systems p + Pb, p + Au, d + Au and ${}^3$He + Au and even in high multiplicity p + p events at LHC recently  \citep{Loizides:2016small, PHENIX:2014dAu, PHYNIX:2015He3Au, CMS:2015-pPb, ALICE:2014pPb}. This observation draws the interest into QGP in small systems.
+The observation of azimuthal anisotropy in agreement with hydrodynamic calculations confirms the existence of a strongly coupled QGP phase in large collisions; however, similar phenomena were also observed in small systems p+Pb, p+Au, d+Au and ${}^3$He+Au and even in high multiplicity p+p events at LHC recently  \citep{Loizides:2016tew, Adare:2014keg, Adare:2015ctn, CMS:2015waa, ALICE:2014mda}. These observations suggest that QGP may be produced in small systems as well.
 
-\includegraphics[width=\columnwidth]{pics/dNdy-AA.png}\label{AA-dNdy}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{pics/dNdy-PbPb.png}
+\caption{Centrality dependence of charged particle pseudo-rapidity density in PbPb collision at $\sqrt{s} = 2.76 TeV/A$ from ALICE collaboration \citep{ALICE:2015kda}.}
+\label{AA-dNdy}
+\end{center}
+\end{figure}
 
-\includegraphics[width=0.9\columnwidth]{pics/dNdy-pPb.png}\label{pA-dNdy}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{pics/dNdy-pPb.png}
+\caption{Centrality dependence of charged particle pseudo-rapidity density in pPb collision at $\sqrt{s} = 5.02 TeV/A$ from ATLAS collaboration \citep{Aad:2015zza}.}
+\label{pA-dNdy}
+\end{center}
+\end{figure}
 
-\section{Boost-invariance and Beyond}
-	The matter produced in heavy ion collision expand rapidity in the beam direction. So it is convenient to express the system in terms of curvilinear coordinates $(\tau, x, y, \eta_s)$. 
-	With $x, y$ remains the same as Cartesian coordinates transverse to beam direction, $\tau$ and $\eta_s$ are known as local time and space-time rapidity of the system,
+\section{Centrality class, kinetics, and boost-invariance approximation}
+	This section will introduce a few useful concepts for describing relativistic heavy-ion collisions.
+	
+	First we examine the transverse geometry of AA collisions. Collisions at different impact parameters result in different transverse geometries and multiplicities (number of final state charged particles). 
+	As seen in Fig. (\ref{centrality}), small impact parameter results in large overlapping between projectile and target nuclei, producing initial condition with small eccentricity and more final state particles; large impact parameter leads to a initial condition with larger eccentricity and less particles in the final state. 
+	We are interested in the initial state eccentricities, because they will translate into final state momentum-space anisotropy through hydrodynamics expansion.
+	However, experimentally there is no control over the impact parameter, instead the collision geometry is inferred by the event multiplicity or centrality class.
+	The definition of centrality class may varies in different experiments.
+	For example, if events are sorted according to their multiplicities with certain kinetic cuts in descending order, centrality class $[c_1\%, c_2\%)$ is defined to be the $c_1\%$ to $c_2\%$ of the sorted sequence.
+	Therefore, for AA collision, larger centrality class corresponds to smaller multiplicity and smaller initial spatial anisotropy (eccentricity).
+	\begin{center}
+	\begin{figure}
+	\includegraphics[width=\columnwidth]{pics/centrality.png}
+	\caption{Lower: historgram of multiplicity for $10^6$ evnets generated by TRENTo. Vertial dashed lines denotes the range of centrality classes: $0 - 5\%, 5 - 10\%, 10 - 20\%, 20 - 30\%, 30 - 40\%, 40 - 50\%, 50 - 60\%, 60 - 70\%, 70 - 80\%, 80 - 90\%, 90 - 100\%$ from right to left. Upper: typical collision geometry for events within the corresponding centrality class.}\label{centrality}
+	\end{figure}
+	\end{center}		
+	
+	Next, we focus on the longitudinal features of the collisions.
+	The matter produced in heavy-ion collisions expands rapidly in the beam direction, so it is convenient to use curvilinear coordinates $(\tau, x, y, \eta_s)$. 
+	Here $x, y$ are the Cartesian coordinates transverse to the beam direction ($z$ direction), $\tau$ and $\eta_s$ are the local time and space-time rapidity,
 	\begin{eqnarray}
 		\tau = \sqrt{t^2 - z^2} &,& \eta_s = \frac{1}{2}\ln\left(\frac{t+z}{t-z}\right) \\
 		t = \tau \cosh \eta_s &,& z = \tau \sinh \eta_s.
 	\end{eqnarray}
-	These coordinates transforms under lorentz boost along $z$ direction as,
+	These coordinates transform under lorentz boosts along the $z$ direction as,
 	\begin{eqnarray}
 		(\tau, {\bf x_{\perp}}, \eta_s) \xrightarrow{L} (\tau, {\bf x_{\perp}}, \eta_s + \Delta)
 	\end{eqnarray}
-	A boost invariant solution of hydrodynamics has no $\eta_s$ dependence, which reduces the 3+1 D hydrodynamic simulation to 2+1 D. 
-	Once solving the evolution in transverse plane at $\eta_s = 0$, solution at arbitrary $\eta_s$ are obtained by boost in beam direction.
+	We also introduce longitudinal rapidity ($y$) and pseudo-rapidity ($\eta$) for momentums of final state particles,
+	\begin{eqnarray}
+	y &=& \frac{1}{2}\ln\left( \frac{E + p_z}{E - p_z} \right), \\
+	\eta &=& \frac{1}{2}\ln\left( \frac{|\vec{p}|+p_z}{|\vec{p}|-p_z} \right) = -\ln\left(\tan\left(\frac{\theta}{2}\right)\right).
+	\end{eqnarray}
+	The pseudo-rapidity of a particle is directly related to the angle between its momentum and the beam axis, and is therefore convenient for experimental measurements.
 	
-	This is considered to be a good approximation in AA collision, as seen from the charged particle pseudo-rapidity distribution measured at RHIC and LHC, Fig. (\ref{AA-dNdy}). 
-	Crudely speaking, the central plateau of $\mathrm{d}N\mathrm{d}\eta$ justifies boost-invariance around $\eta = 0$. 
+	A boost-invariant situation refers to a problem set-up without $\eta_s$ dependence, which reduces the 3+1 D hydrodynamic simulation to 2+1 D. 
+	A simple case is known as Bjorken flow \citep{Bjorken:1982qr}, where pseudo-rapidity coincides with the space-time rapidity so that medium at space coordinate $z$ recede with a velocity $z/t$ from the center.
+	After solving the evolution in the transverse plane at $\eta_s = 0$, the solution at arbitrary $\eta_s$ is obtained by boosting in the beam direction.
 	
-	However, these measurements are performed over many events within each centrality class, so mid-rapidity plateau may be absent in the evolution of individual event.
-	Also, event-wise longitudinal energy density profile at certain transverse region may violates boost-invariance, due to local asymmetry of participant density in projectile and target nuclei. 
-	How these local longitudinal fluctuation affects our prediction at mid-rapidity and the extraction of transport coefficients should be interesting.
+	Boost-invariance is considered to be a good approximation in AA collisions, as seen from the charged particle pseudo-rapidity distribution measured at RHIC and LHC, Fig. (\ref{AA-dNdy}). 
+	Crudely speaking, the central plateau of $\mathrm{d}N/\mathrm{d}\eta$ justifies boost-invariance around $\eta = 0$ since a small shift in $\eta$ makes little difference at $|\eta| < 2$. 
+	However, these measurements are performed over many events within each centrality class, so the mid-rapidity plateau may be absent in the evolution of individual events.
+	Also, the event-wise longitudinal energy density profile at certain transverse regions may violate boost-invariance, due to local asymmetry of projectile and target densities. 
+	How these local longitudinal fluctuations affect our prediction at mid-rapidity and the extraction of transport coefficients should be interesting.
 	
-	Moreover, from Fig. (\ref{pA-dNdy}), boost invariance is definitely broken in p(d, ${}^3He$)+A collisions.
+	Moreover, from Fig. (\ref{pA-dNdy}), boost-invariance is definitely broken in p+A (asymmetric) collisions.
 	Since the observation of collectivity in small systems, there are heated discussion on extending the applicability of hydrodynamics to such systems.
 	A consistent comparison of simulation with experimental data requires a more realistic rapidity dependent initial condition as input.
 	
 	
 	
 	\section{TRENTo Initial Condition}
-	Under the boost-invariant approximation, it is sufficient to specify the initial condition at mid-rapidity ($\eta_s = 0$). Various models were proposed to describe the entropy/energy deposition at mid-rapidity. 
+	Under the boost-invariance approximation, it is sufficient to specify the initial condition at mid-rapidity ($\eta_s = 0$). Various models were proposed to describe the entropy/energy deposition at mid-rapidity. 
 	However, these models can be phenomenologically described with an effective model TRENTo \cite{Moreland:2014oya}. 
-	TRENTo IC consist of three levels of parametrization,
+	TRENTo IC is constructed in three layers,
 	\begin{itemize}
-		\item Binary nucleon-nucleon collision.
-		\item Nuclear-nuclear collision. 
-		\item Mid-rapidity entropy deposition ansatz.
+		\item Calculate cross sections using a Glauber formalism.
+		\item Determine the density of participant matter. 
+		\item Convert local participant density to entropy deposition using a flexible ansatz.
 	\end{itemize}
-	The first two steps are similar to the procedures of Monte-Carlo Glauber Model; however, TRENTo employs a much generalized entropy deposition formula.
-	\subsection{Parametrization of Binarg Nucleon-nucleon collision}
-	Impact parameter differential inelastic cross-section is parametrized in the eikonal limit,
+	The first two steps are similar to the procedures of Monte-Carlo Glauber model; however, TRENTo employs a much more generalized entropy deposition formula.
+	\subsection{Parametrization of binary nucleon-nucleon collision}
+	Impact parameter ($b$) differential inelastic cross-section or the probability of inelastic collision at fixed impacted parameter is calculated in the eikonal limit,
 	\begin{eqnarray}\label{dsigma_db}
-		\frac{\mathrm{d}\sigma_{nn}}{2\pi b \mathrm{db}} = 1 - \exp\left(-\alpha T_{pp} (b)\right).
+		\frac{\mathrm{d}\sigma_{NN}}{2\pi b \mathrm{d}b} = 1 - \exp\left(-\alpha T_{pp} (b)\right).
 	\end{eqnarray}
-	\includegraphics[width=\columnwidth]{pics/Pcoll.png}
-	$T_{pp}$ is the overlapping of nucleons' transverse density function $\rho(x_\perp)$, which is generally assumed to be normalized Gaussian,
+Here, $T_{pp}$ is the overlapping of nucleons' transverse density function $\rho(x_\perp)$, which is generally assumed to be normalized Gaussian,
 	\begin{eqnarray}
 		\rho(x_\perp) &=& \frac{1}{\sqrt{2\pi w^2}}\exp\left(-\frac{{x_\perp}^2}{2w^2}\right), \\
 		T_{pp}(b) &=& \int \mathrm{d}{x}^2 \rho(x+\frac{b}{2})\rho(x-\frac{b}{2})
 	\end{eqnarray}
-	All the information of subnucleonic degrees of freedom is encoded in the coefficient $\alpha$, which is tuned to reproduce the inelastic proton-proton inelastic cross-section at a given energy,
+	All the information of subnucleonic degrees of freedom is encoded in the coefficient $\alpha$, which is tuned to reproduce the proton-proton inelastic cross section at a given energy,
 	\begin{eqnarray}
 		\int \mathrm{d}\sigma_{nn}(\alpha) = \sigma_{pp, inel}(\sqrt{s}).
 	\end{eqnarray}
-	Eq. (\ref{dsigma_db}) is then interpreted as the probability for two nucleon to collide with separation of $b$ and is realized via a Monte Carlo approach.
-	\subsection{Parametrization of Nuclear-nuclear Collision}
-	The penetrating of nuclei of ultra-relativistic collision takes much shorter time than the time scale of nucleon motion inside a nuclei; therefore, nucleon position fluctuation need to be taken into account. 
+	Eq. (\ref{dsigma_db}) is then interpreted as the probability for two nucleons to collide with impact parameter $b$ and is realized via a Monte-Carlo approach.
+	\begin{figure}
+	\begin{center}
+	\includegraphics[width=\columnwidth]{pics/Pcoll.png}
+	\caption{Impact parameter dependence of nucleon-nucleon inelastic collision probability.}
+	\end{center}
+	\end{figure}
+	\subsection{Determine participant density}
+	The time it takes the projectile nucleons to penetrate the target nucleus is much shorter than the time scale of internal motion inside the nucleus; therefore, nucleon position fluctuation cannot be neglect.
+	\begin{figure}
+	\begin{center}
 	\includegraphics[width=\columnwidth]{pics/nuclei.png}
-	In TRENTo, nucleons are sampled from a (deformed) Woods-Saxon density distribution and then projected onto the transverse plain. 
-	Each pair of nucleons with one from projectile and the other from target nuclei is examined with the binary collision criterion. 
-	Nucleons subject to at least one collision are called participants, and the rest, spectators.
-	The contribution of participants from nuclei $\{A,B\}$ defines the nuclear thickness function:
+	\label{nuclei}
+	\caption{Transverse view of sampled nucleons from Woods Saxon distribution for target (blue) and projectile (green) nuclei. The impact parameter is $b = 8$ fm. Entropy deposition region is denoted by red dashed circle.}
+	\end{center}
+	\end{figure}
+	
+	In TRENTo, nucleons are sampled from a (deformed) Woods-Saxon density distribution and then projected onto the transverse plane. 
+	Each pair of nucleons from the projectile and target nuclei are tested with binary collision criterion. 
+	Nucleons subject to at least one collision are called participants and the rest spectators.
+	The contribution of participants from nuclei $A,B$ defines the nuclear thickness function:
 	\begin{eqnarray}
-		T_{A,B}(x_\perp) &=& \sum_{i \in Part A,B} \gamma_i. \rho(x_\perp- x_i), \\
+		T_{A,B}(x_\perp) &=& \sum_{i \in \textrm{Part} A,B} \gamma_i \rho(x_\perp- x_i), \\
 		\gamma_i &\sim& \Gamma(k, k).
 	\end{eqnarray}
-	Note that the contribution from each participant nucleon is multiplied by a random variable $\gamma_i$ subject to $\Gamma$ distribution with unity mean and variance $1/k$. 
-	This additional source of fluctuation is added to reproduce the negative binomial distribution of number of charged particle in minimum biased $pp$ collisions.
+	Note that the contribution from each participant nucleon is multiplied by a random variable $\gamma_i$ sampled from a $\Gamma$ distribution with unit mean and variance $1/k$. 
+	This additional source of fluctuation is added to reproduce the negative binomial distribution of charged particle multiplicity in minimum bias $pp$ collisions.
 	\subsection{Entropy Deposition Ansatz}
-	TRENTo assumes in the eikonal limit, immediately after the penetrating of the nuclei, entropy deposition are local function of nuclear thickness functions $T_{A,B}$. 
-	Generalized mean ansatz provide a flexible way to parametrize this mapping,
+	TRENTo assumes in the eikonal limit, immediately after the collision that entropy deposition is a local function of nuclear thickness functions $T_{A,B}$. 
+	The generalized mean ansatz provides a flexible way to parametrize this mapping,
 	\begin{eqnarray}
 	\left.\frac{\mathrm{d^3}s}{\mathrm{d}\eta_s \mathrm{d}x_\perp^2}\right\vert_{\eta_s = 0} &=& 	T_R\left(T_A, T_B; p\right),	\\
 	T_R(x, y; p) &=& \left(\frac{x^p+y^p}{2}\right)^{\frac{1}{p}}.
 	\end{eqnarray}
-	With parameter $p$ various, this ansatz mimic a variety of initial condition models.
+	By varying the parameter $p$, the model is able to mimic a variety of initial condition models \cite{Scott}.
 	\begin{center}
 	\begin{tabularx}{0.45\textwidth}{c>{\centering\arraybackslash}m{2.0cm}>{\centering\arraybackslash}m{2cm} cX}
 	\toprule[1pt]
-	$p$	&	$-0.5$	 	&	$0.0$ 		& 	$1.0$		\\
+	$p$	&	$-0.67$	 	&	$0.0$ 		& 	$1.0$		\\
 	\midrule[0.5pt]	
 	$\sim$ &		KLN		& 	EKRT		& 		Wounded Nucleon \\
 	\bottomrule[1pt]
 	\end{tabularx}
 	\end{center}
-	The ``$\sim$" sign in the table reminds that $T_R$ resembles the entropy deposition of different models for reasonable value of thickness function. 
+	The ``$\sim$" sign in the table reminds that $T_R$ resembles the entropy deposition of different models for reasonable value of the participant density. 
 	This parametrization allows interpolation between different initial condition models and is suitable for a model selection procedure to learn what is the most probable initial condition to explain the observed experimental data at mid-rapidity.
-	A model to data comparison by Bayesian analysis has very well constrained $p$ to be close to zero.
+	A model-to-data comparison using Bayesian analysis constrained the parameter $p$ close to zero \citep{Jonah}.
 \section{Rapidity Dependent Extension of TRENTo}
-	Although many models are proposed to describe mid-rapidity initial condition, it is not very clear how to include rapidity dependent effect. In the same spirit of TRENTo, we tried to parametrize the rapidity dependent initial condition in a flexible and simple way, so that a model select procedure can be applied.
+	Although many models have been proposed to describe initial condition at mid-rapidity, it is not clear how to include rapidity dependence. In the same spirit of TRENTo, we choose to parametrize the rapidity dependence of the initial conditions in a flexible and simple way, so that a model selection procedure can be applied.
 	
-	Because of the success of TRENTo at mid-rapidity, the 3d-extension will preserve prediction of TRENTo at $\eta_s = 0$ and the entropy distribution immediately after the collision will be local function of $T_A$ and $T_B$,
+	Because of the success of TRENTo at mid-rapidity, the 3d-extension preserves the prediction of TRENTo at $\eta_s = 0$ and the entropy distribution is still a local function of $T_A$ and $T_B$,
 	\begin{eqnarray}
 	T_A(x_\perp), T_B(x_\perp) \rightarrow \frac{\mathrm{d^3}s}{\mathrm{d}x_{\perp}^2 \mathrm{d}\eta_s}\left(x_\perp, \eta_s\right)
 	\end{eqnarray}
-	Also for simplicity, it is assumed the rapidity dependece factorize from the transverse distribution $T_R$,
+	Also for simplicity, it is assumed the rapidity dependence factorizes from the transverse distribution $T_R$,
 	\begin{eqnarray}
-		\frac{\mathrm{d}S}{\mathrm{d}x_{\perp}^2 \mathrm{d}\eta_s}  &\propto& T_R(x_\perp) \frac{F(x_\perp,y)}{F(x_\perp,0)}\frac{\mathrm{d}y}{\mathrm{d}\eta_s}
+		\frac{\mathrm{d}S}{\mathrm{d}x_{\perp}^2 \mathrm{d}\eta_s}  &\propto& T_R(x_\perp) \frac{F(x_\perp,y)}{F(x_\perp,0)}\frac{\mathrm{d}y}{\mathrm{d}\eta_s},
 	\end{eqnarray}
-	
-	Instead assuming any explicit form of the space-time rapidity dependence $F(x_\perp, \eta)$, we first parametrize its cumulants, and then reconstruct it (as function of rapidity) by inverse Fourier transform of its cumulant generating function,
-	\begin{eqnarray}
-	 	F(x_\perp,y) &=& \mathcal{F}^{-1}\{\tilde{F}(k)\} \\
-	 	\ln \tilde{F} &=&  i \mu k - \frac{1}{2}\sigma^2 k^2 + i 	\gamma k^3  - \kappa k^4
-	\end{eqnarray}
-The	with the relation between particle's rapidity and space-time rapidity,
+assuming the relation between particle's rapidity and space-time rapidity,
 	\begin{eqnarray}
 		\eta_s &=& \sinh^{-1}(\sqrt{K}\sinh(y)), K>1. 
 	\end{eqnarray}
-is used to obtain the final space-time distribution.
+	
+	Instead of using any explicit form of the rapidity dependence of $F(x_\perp, y)$, we first parametrize its cumulants and then reconstruct it by applying an inverse Fourier transformation on the cumulant generating function,
+	\begin{eqnarray}
+	 	F(x_\perp,y) &=& \mathcal{F}^{-1}\{\tilde{F}(k)\} \\
+	 	\ln \tilde{F} &=&  i \mu k - \frac{1}{2}\sigma^2 k^2 + i 	\gamma k^3  - \kappa k^4 ...
+	\end{eqnarray}
 
-	Different rapidity dependent IC models can be mapped to different parametrization of cumulants. Two existing approach with the name "Shifted" or "Tilted" are listed in the first two rows.
+	Different rapidity dependent IC models can be mapped to different parametrization of cumulants. Two existing approaches with the name ``Shifted" or ``Tilted" are listed in the first two rows \cite{Bozek:2010bi}.
 	\begin{widetext}
 	\begin{center}
 	\begin{tabularx}{0.8\textwidth}{c *{4}{Y}}
@@ -301,52 +378,60 @@ is used to obtain the final space-time distribution.
 	\end{tabularx}
 	\end{center}
 	\end{widetext}
-	A shifted initial condition assumes that in asymmetrical collisions, particle production (local in transverse plabe) as function of rapidity resembles a Gaussian as symmetrical case, with its mean shifted to the center of mass rapidity $\frac{1}{2}\ln(T_A/T_B)$. A tilted initial condition modified the symmetrical distribution by a linear tilting,
+	A shifted initial condition assumes that in asymmetric collisions, particle production (local in transverse plane) as function of rapidity resembles a Gaussian in the symmetric case, with its mean shifted to the center-of-mass rapidity $\frac{1}{2}\ln(T_A/T_B)$. 
+	A tilted initial condition modifies the symmetric distribution by a linear tilting,
 	\begin{eqnarray}
-	f_{asy}(\eta_s) = f_{sym}(\eta_s) (1+\alpha \eta_s)
+	f_{\textrm{asy}}(\eta_s) = f_{\textrm{sym}}(\eta_s) (1+\alpha \eta_s)
 	\end{eqnarray}
-	with $\alpha$ a measure of the degree of asymmetry. 
-	Two possible construction of degree of asymmetry are shown in the second row. 
+	where $\alpha$ is a measure of the degree of asymmetry. 
+	Two possible constructions for the degree of asymmetry are shown in the second row. 
 	This first one is a dimensionfull quantity while the second is a dimensionless construction. 
-	In the last row, we show a general case with the mean of the function proportional to the center-of-mass rapidity and the skewness proportional to the degree of asymmetry. 
-	By varying the coefficients $a, c$, we are able to interpolate between this two types of assumption.
+	In the last row, we show a general case with the mean proportional to the center-of-mass rapidity and the skewness proportional to the degree of asymmetry. 
+	By varying the coefficients $a, c$, we are able to interpolate between these two entropy deposition schemes.
 	
-	\begin{figure}\label{regulation}
+	\begin{figure}
+	\begin{center}
 	\includegraphics[width=\columnwidth]{pics/regulate.png}
+	\caption{Left: parametrized longitudinal entropy deposition for different values of the skewness $\gamma$ suffers from non-monotonic behaviour as function of skewness at central rapidity and negative values at large rapidity. Right: replacing $\gamma$ by $\gamma\exp{\left(-\frac{1}{2}\sigma^2 k^2\right)}$ achieves desired monotonic change with skewness and suppresses negative regions at large rapidity.}\label{regulation}
+	\end{center}
 	\end{figure}
  
-	However, the reconstructed function may not be well-behaved for relatively large degree of asymmetry. 
-	From the left panel of Fig. (\ref{regulation}), with the increase of skewness, there is not a monotonic trend of change; also, the function goes to negative for large $|\eta_s|$
-	This shows the importance of including higher order cumulants to regularize the behaviour of the generating function. 
+	However, the reconstructed function may not be well-behaved for relatively large skewness. 
+	From the left panel of Fig. (\ref{regulation}), with the increase of skewness, there is not a monotonic trend of change; also, the function goes negative for large $|\eta_s|$.
+	This stresses the importance of including higher order cumulants to regularize the behaviour of the generating function. 
 	The conditions to ensure a positive definite Fourier transform are quite involved, but with the following substitution,
 	\begin{eqnarray}
 		\{\gamma, \kappa\} \rightarrow \{\gamma, \kappa\} \exp\left(-\frac{1}{2}\sigma^2k^2\right),
 	\end{eqnarray}
-	The negative region is suppressed and there is clear monotonic trend with the increase of skewness (right panel of Fig. (\ref{regulation}), the range of skewness showed in the plot covers the largest reasonable value in the initial condition. )
-		
-	Note that this substitution leaves the skewness and kurtosis intact, while contribution from higher order cumulants are included systematically.
-	The distribution reconstructed with regularization produce and is positive and well behaved over a wide range of rapidity and skewness.
+	the negative region is suppressed and there is a clear monotonic trend with increasing skewness in Fig. (\ref{regulation}). The range of skewness shown in the plot covers the largest reasonable values for realistic initial conditions.	
+	Note that this substitution leaves the skewness and kurtosis intact, while contributions from higher order cumulants are included systematically.
+	The distribution reconstructed with regularization is positive and well behaved over a wide range of rapidity and skewness.
 	
-	Fig. (\ref{3d-example}) are a sample 3d initial condition of a single PbPb event, projecting onto X-Y plane at mid-rapidity, to X-$\eta_s$ plane at $Y = 0$ and to Y-$\eta_s$ plane at $X = 0$. We can see that the transverse entropy distribution fluctuates due to randomized nucleon position, and the longitudinal profile distorted forward/backward according to the asymmetry of local incoming matter from target and projectile. 
+	Fig. (\ref{3d-example}) shows a sample 3d initial condition event for PbPb and pPb collisions, projected onto the X-Y plane at mid-rapidity, to the X-$\eta_s$ plane at $Y = 0$ and to the Y-$\eta_s$ plane at $X = 0$. We can see that the transverse entropy distribution fluctuates due to randomized nucleon positions, and the longitudinal profile is distorted forward/backward according to the asymmetry of local target and projectile densities. 
 	
-	\includegraphics[width=1.0\columnwidth]{pics/3d-example.png}\label{3d-example}
+	\begin{figure}
+	\begin{center}
+	\includegraphics[width=1.0\columnwidth]{pics/3d-example.png}
+	\caption{Upper: IC of a PbPb event projected onto XY, YZ, XY plane (from left to right). Lower: IC of a pPb event projected onto XY, YZ, XY plane (from left to right).}\label{3d-example}
+	\end{center}
+	\end{figure}
+	
 
 \section{Model to Data Comparison}
-	The ultimate goal is to confront the calculations of hybrid model with different initial conditions to the experimental measurements, which will improve out knowledge of initial condition and expand model capability to look for rapidity related observables.
-	Here the procedure of a model to data comparison with Bayesian analysis summarized. 
+	The ultimate goal is to compare the calculations of hybrid models with different initial conditions to experimental measurements. This improves our knowledge of initial conditions and other model parameters such as transport coefficients. We briefly summarize the procedures for model-to-data comparison using Bayesian analysis \citep{Dave:10.2307/27640080, Bernhard:2015hxa}. 
 	\subsection{Parameter design} 
-	Hybrid model for heavy ion physics usually contains multiple parameters. 
-	A 3d extension of the existing initial conditon introduce $4\sim5$ more parameters. 
-	This constitutes a high dimensional parameter space $(p_1, p_2, ..., p_n)$, which makes it impractical to uniformly search the space. 
-	A Latin Hypercube experimental design to sample parameters is preferable. 
-	In such experimental design, parameters (properly normalized to live in $[0,1)^n$ are generated in a Monte Carlo approach, such that
+	Hybrid models for heavy-ion physics usually contain multiple parameters. 
+	A 3d extension of the existing initial condition introduces $4\sim5$ additional parameters.
+	This constitutes a high dimensional parameter space $(p_1, p_2, ..., p_d)$, which is impractical for uniform search. 
+	A Latin hypercube experimental design is preferable for this problem. 
+	In such an experimental design, parameters (properly normalized to live in $[0,1)^d$) are generated using a Monte Carlo approach, such that
 	\begin{itemize}
-		\item Minimum distance between parameter points is maximized.
-		\item Projection of sampled parameter points onto lower dimensional space subject to uniform distribution.
+		\item The minimum distance between parameter points is maximized.
+		\item The projection of sampled parameter points onto lower dimensional space is uniformly distributed.
 	\end{itemize}
-	The advantage of Latin Hypercube design is that it avoids over populated or sparse samples in a certain region and that the number of samples $N$ needed scales linear with dimension of parameter space $d$.
+	The advantage of Latin hypercube design is that it avoids over populated or sparse regions of parameter space and that the number of samples needed scales linear with the dimension of the parameter space.
 	
-	The parameter sets allowed to varies in the present 3d extended initial condition is 
+	The parameter set and its range in the present 3d initial condition is,
 	\begin{center}
 	\begin{tabularx}{0.45\textwidth}{c*{7}{Y}}
 		\toprule[1pt]
@@ -357,7 +442,7 @@ is used to obtain the final space-time distribution.
 		\bottomrule[1pt]
 	\end{tabularx}\label{parameter}
 	\end{center}
-	The model will run with each set of parameters from the $N$ samples and output the associate $m$ observables. Loosely speaking, the model maps the design matrix $(N \times d)$ to observable matrix $(N \times m)$,
+	The model runs on the $N$ sets of sampled parameters and then outputs $m$ observables. Loosely speaking, the model maps the design matrix $(N \times d)$ to observable matrix $(N \times m)$,
 	\begin{eqnarray}\label{design-obs}
 	\left(\begin{array}{ccc}
 	p_{1}^{1}  & \cdots & p_{d}^{1}\\
@@ -373,11 +458,12 @@ is used to obtain the final space-time distribution.
 	\end{eqnarray}
 	
 	\subsection{Model emulator}
-	Inference of model calculation with arbitrary parameter sets within the parameter space (d-hypercube) is performed via Gaussian process (GP). 
-	The advantages of GP are that it is non-parametric and that the result is a likelihood distribution of prediction instead of a single valued prediction. 
-	This grants GP both flexibility and easy evaluation of uncertainty.
+	Model calculations are inferred at arbitrary points in parameter space using a Gaussian process (GP) emulator to interpolate the Latin hypercube design. 
+	GP emulator is a powerful non-parametric, non-linear multivariate regression. 
+	It predicts the likelihood of model outputs at desired point in parameter space by specifying its mean and the covariance.
+	These features make it a flexible tool for inference of model output with uncertainty estimation.
 	
-	 The Gaussian process is trained and optimized with mapping \ref{design-obs}, and then serves as a fast surrogate to infer model calculation with a given parameter set $p^*$,
+	 The Gaussian process is trained and optimized with mapping (\ref{design-obs}), and then serves as a fast surrogate to infer model calculation with a given parameter set $p^*$,
 	 \begin{eqnarray}
 	 	(p^*_1, \cdots, p^*_d) \xrightarrow{\textrm{trained GP}} (O^*_1, \cdots, O^*_m).
 	 \end{eqnarray}
@@ -385,17 +471,17 @@ is used to obtain the final space-time distribution.
 	 \begin{itemize}
 	 \item {\bf Gaussian process of d-dimensional scalar function}
 	 
-	 Given an array of input d-vectors $\{\mathbf{x}_i, i = 1, 2, \cdots, N\}$, Gaussian Process is the multivariate normal distribution of the scalar outputs $\{y_i, i = 1, 2, \cdots, N\}$,  with specified mean and covariance matrix,
+	 Given an array of input d-vectors $\{\mathbf{x}_i, i = 1, 2, \cdots, N\}$, Gaussian process is the multivariate normal distribution of the scalar outputs $\{y_i, i = 1, 2, \cdots, N\}$,  with specified mean and covariance matrix,
 	 \begin{eqnarray}
 	 y_i \sim \mathcal{N}(\mu_i, \Sigma_{ij}).
 	 \end{eqnarray}
-An instantiation of $y_i$ can be regard as $N$ points $(x_i, y_i)$ drawn from a random function with its property described by $\mu(\mathbf{x}), \Sigma(\mathbf{x}, \mathbf{x}')$. 
-	With $\mu(\mathbf{x})$ often set to zero without loss of generality, a common parametrization of $\Sigma(\mathbf{x}, \mathbf{x}')$ is:
+An instantiation of $y_i$ can be regarded as $N$ points $(\mathbf{x}_i, y_i)$ drawn from a random function with its properties described by $\mu(\mathbf{x}), \Sigma(\mathbf{x}, \mathbf{x}')$.  
+	The mean $\mu(\mathbf{x})$ is often set to zero without loss of generality and a common parametrization of $\Sigma(\mathbf{x}, \mathbf{x}')$ is:
 	\begin{eqnarray}\label{kernel}
 		\Sigma(\mathbf{x}, \mathbf{x}') &=& \sigma_0^2\exp\left( -\frac{1}{2}\Delta\mathbf{x}^T \mathbf{C} \Delta\mathbf{x} \right) + \sigma_n^2\delta_{\mathbf{x}, \mathbf{x}'}, \\
 		\Delta\mathbf{x} &=& \mathbf{x} - \mathbf{x}'	
 	\end{eqnarray}
-	With  matrix $C$ often be in diagonal form,
+	With  matrix $C$ often in diagonal form,
 	\begin{eqnarray}
 		\mathbf{C} = 
 		\left(		
@@ -407,184 +493,225 @@ An instantiation of $y_i$ can be regard as $N$ points $(x_i, y_i)$ drawn from a 
 		\end{array}
 		\right)
 	\end{eqnarray}
-	Therefore, variance of $y(\mathbf{x})$ is $\sigma_n^2$ and nearby $\mathbf{x}$ have similar $y$, while large separation $\Delta \mathbf{x} \gg l$ results in almost uncorrelated outputs.
+	Therefore, the variance of $y(\mathbf{x})$ is $\sigma_n^2$ and nearby $\mathbf{x}$'s are mapped to similar $y$'s, while large separations $| \Delta \mathbf{x} | \gg l$ result in almost uncorrelated outputs.
 	 
 	 
-	 \item {\bf Constrained Gaussian Process:}
-	 
-	 To make inference of models using GP, we need to constrain the GP to agree with the existing data,
+	 \item {\bf Constrained Gaussian process:}
+	 GP emulator needs to be constrained to agree with the existing data before it is used for model inference.
+	 The constrained GP predicts $y(\mathbf{x}^*)$ (with zero mean) according to,\begin{widetext}
 	 \begin{eqnarray}
-	 		\mathbf{x}_i \rightarrow y_i, i = 1, \cdots, N
+	 	y(\mathbf{x}^*) &\sim& \mathcal{N}\left(0, \Sigma^*\right), 
+	 	\phantom{123}
+	 	\Sigma^* = \Sigma(\mathbf{x}^*, \mathbf{x}_i) -  \Sigma(\mathbf{x}^*, \mathbf{x}_i) \Sigma(\mathbf{x}_i, \mathbf{x}_j)^{-1} \Sigma(\mathbf{x}_j, \mathbf{x}^*).
 	 \end{eqnarray}
-	 The constrained GP predict $y(\mathbf{x}^*)$ (with zero mean) according to,
-	 \begin{eqnarray}
-	 	y(\mathbf{x}^*) &\sim& \mathcal{N}\left(0, \Sigma^*\right)
-	 \end{eqnarray}
-	 With the covariance matrix $\Sigma^*$ constructed from Eq. (\ref{kernel}),
-	 \begin{eqnarray}
-	 	\Sigma^* &=& \Sigma(\mathbf{x}^*, \mathbf{x}_i) -  \Sigma(\mathbf{x}^*, \mathbf{x}_i) \Sigma(\mathbf{x}_i, \mathbf{x}_j)^{-1} \Sigma(\mathbf{x}_j, \mathbf{x}^*)
-	 \end{eqnarray}
-	 The constrained GP is now a model surrogate. This argument is justified since the closer $\mathbf{x}^*$ to a data point $\mathbf{x_i}$, the output predicted by GP is closer to $y_i$ due to the reducing covariance. On the other hand, if we try to predict the model output at a $\mathbf{x}^*$ that is far from existing data, the uncertainty of prediction will be large.
+\end{widetext}
+	 This guarantees that the closer $\mathbf{x}^*$ is to a data point $\mathbf{x_i}$, the output predicted by GP is closer to $y_i$ due to the reduced covariance. 
+	 On the other hand, the uncertainty will be large for prediction of the model output at a value of $\mathbf{x}^*$ far from existing data.
 
-	\item{\bf Training Gaussian Process}
-	A Gaussian process also introduce its own parameters, or hyper-parameters, such as the $\theta = \{\sigma_n, l_i, \sigma_0\}$ in kernel function Eq. (\ref{kernel}). In principle, our lack of knowledge of the values of hyper-parameters should be regard as another source of ignorance in addition to the unconstrained model parameters. However, it is common to use approximation where hyper-parameters are chosen to maximize the model likelihood function,
+	\item{\bf Training Gaussian process}
+	A Gaussian process also introduce its own parameters, or hyper-parameters, such as $\{\sigma_n, l_i, \sigma_0\}$ in Eq. (\ref{kernel}) denoted by $\theta$. In principle, our lack of knowledge of the values of hyper-parameters should be another source of ignorance in addition to the unconstrained model parameters. However, it is common to use an approximation where hyper-parameters are chosen to maximize the model likelihood function \citep{GP-book},
 	\begin{eqnarray}
 		\ln P(y_i|\mathbf{x}_i, \theta) = -\frac{1}{2}y_i (\Sigma_y^*)^{-1}_{ij} y_j - \frac{1}{2}\ln|\Sigma_y^*| + C,
 	\end{eqnarray}
-	where, $\Sigma_y^*$ is the constrained covariance matrix applied on data points and $C$ a normalization constant. The first term favours fitting existing data, while the second term is a complexity penalty term that limits over fitting.
+	where $\Sigma_y^*$ is the constrained covariance matrix applied on data points and $C$ is a normalization constant. The first term favours fitting existing data, while the second term is a complexity penalty term that limits over fitting.
 	
-	\item{\bf Multivariate Output}
-	The Gaussian Process described above only predicts a scalar, however, experimental observable could be high dimensional Eq. (\ref{design-obs}). Naively, we can construct $m$ Gaussian process for each observable in Eq. (\ref{design-obs}), however, there will be much to redundancy for strongly correlated observables and it is also impractical when $m$ is large. Instead, a singular value decomposition on the observable matrix in Eq. (\ref{design-obs}) is performed and the observables are rotated to principle components. The relevant principle components that will be emulated by GP are those correspond to the first few largest singular values. They are responsible for most of the modulation of observables matrix. Therefore, by emulating just a few principle components, main features of the observable matrix are captured. Of course, real observables can be reconstructed by rotating back the truncated principle components array.
+	\item{\bf Multivariate output}
+	The Gaussian process described above only predicts a scalar function, however, model outputs could be high dimensional. 
+	Naively, we can construct $m$ Gaussian processes for each column in mapping (\ref{design-obs}), however, it is redundant for strongly correlated observables and also impractical when $m$ is large. 
+	Instead, the data dimension is first reduced by principal component analysis. A singular value decomposition (SVD) is performed on the observable matrix in mapping (\ref{design-obs}) and the outputs are rotated to principle components. 
+	The relevant principle components that will be emulated by GP are those correspond to the first few largest singular values. 
+	They are responsible for most of the modulation of the model outputs. Therefore, by emulating just a few principle components, it captures the main features of the model. 
+	Of course, model output can be recovered by transforming back the truncated principle component vector.
 	\end{itemize}
 	
-	\subsection{Model Calibration / Selection}
-	Suppose we have a confidence probability distribution of the model parameters before compare the model calculation to experiments, called priori probability distribution $P(\mathbf(x)^*)$, which is often a uniform distribution within a d-dimensional hypercube. 
-	By a model to data comparison, the improved probability distribution of the ``true" set of parameters, posterior probability distribution is given by the famous Bayes' theorem,
+	\subsection{Model calibration / selection}
+	Usually, there is a probability distribution of model parameters even before comparing  to experiment, called priori probability distribution $P(\mathbf(x)^*)$. 
+	This priori distribution encodes our existing knowledge of the model, which is often a uniform distribution within a d-dimensional hypercube. 
+	By performing a model-to-data comparison, the improved probability distribution of the ``true" values of parameters, called posterior probability distribution, is given by Bayes' theorem,
 	\begin{eqnarray}
-		P(x^*|\{\mathbf{x}_i, y_i\}, y_\textrm{exp}) \propto P(y_\textrm{exp}|\{\mathbf{x}_i, y_i\}, x^*) P(x^*),
+		P(x^*|\{\mathbf{x}_i, y_i\}, y_\textrm{exp}) \propto P(y_\textrm{exp}|\{\mathbf{x}_i, y_i\}, x^*) P(x^*).
 	\end{eqnarray}
-	It states that probability of model parameters with given training data sets $\{\mathbf{x}_i, y_i\}$ and experiments, equals the prior probability times the probability of predicting experimental data with given training data sets and model parameters.
+	It states that probability of model parameters with given training data sets $\{\mathbf{x}_i, y_i\}$ and experiment, equals the prior probability times the probability of predicting experimental data with given training data sets and model parameters.
 	We assume a Gaussian form of $P(y_\textrm{exp}|\{\mathbf{x}_i, y_i\}, x^*)$,
 	\begin{eqnarray}
 	\ln P(y_\textrm{exp}|x^*) \sim -\frac{1}{2}(y^* - y_\textrm{exp})^T\Sigma_y^{-1}(y^* - y_\textrm{exp})
 	\end{eqnarray}
 	
-The full posterior is a d-dimensional multi-variate distribution, which can be sampled from the Markov chain Monte Carlo (MCMC). Information such as marginal probability distribution and correlations can be extracted from the resulting parameter ensemble.
-	
+	The full posterior is a d-dimensional multi-variate distribution, which can be sampled from the Markov chain Monte Carlo (MCMC) procedure. 
+	Information such as marginal probability distribution and correlations between parameters can be extracted from the resulting MCMC ensemble of parameters.
 	
 \section{Results}
-	\subsection{IC against Experiments}
-	The ultimate goal is to use Bayesian analysis to compare model calculation with experimental observables to constrain the initial condition parameters. 
-	Compared to boost-invariant 2+1 d case, 3+1 d hydrodynamics is computationally heavy for mid-central to central AA collisions, it is advantages to first compare IC prediction directly against observables that are not very sensitive to evolutions. 
-	The charged particle pseudorapidity distribution very well serves this purposes, since it approximately proportional to initial entropy density.
-	It is hoped this comparison will offer a crude constrain of IC parameters.
+	\subsection{IC against experiment}
+	Compared to the boost-invariant 2+1 d case, 3+1 d hydrodynamics is computationally intense for mid-central to central AA collisions. 
+	As a result, before performing statistical analysis on the full time evolution, it is advantageous to first compare IC prediction directly against observables that are not very sensitive to dynamics. 
+	The charged particle pseudo-rapidity distribution very well serves this purpose, since it approximately scales with initial entropy density.
+	It is hoped that this comparison will provide a crude constraint on the IC model.
 	
-	We briefly summarize the procedures as flows.
-	We sampled 100 parameter sets from the uniform distribution described in (\ref{parameter}).
+	We sampled 100 parameter sets from the uniform distribution described preciously.
 	1000 Pb+Pb events and 1000 p+Pb events were generated for each set.  
-	Events are then binned into 4(8) centrality class for Pb+Pb(p+Pb) according to the entropy density at mid-rapidity for Pb+Pb and backward rapidity (Pb going side) for p+Pb to mimic the experimental centrality selection.
-	The concatenation of $\mathrm{d}S/\mathrm{d}\eta_s$ of all centralities forms the output vector of the model with one set of parameter input. 
-	The 100 output vector corresponding to different parameter input forms the observable matrix, while the parameter vector themselves the design matrix. 
-	A principal value decomposition is performed on the observable matrix and the first four principal components, covering over 99.5$\%$ variance of the data as seen from Fig. (\ref{weight}), are used to describe the model output.
-	\includegraphics[width=\columnwidth]{pics/weight.png}\label{weight}
-	Each of the four mappings from parameter space to each principal components is emulated by an independent Gaussian process trained with design matrix and principal component vectors.
-	The hyperparameters within Gaussian process is optimized by maximizing the model likelihood.
-	Finally, using MCMC procedure the high dimensional posterior distribution is obtained as an ensemble of equilibrated parameters sets.
+	Events are then binned into 10(8) centrality class for Pb+Pb (p+Pb) according to the entropy density at mid-rapidity for Pb+Pb and backward rapidity (Pb going side) for p+Pb to mimic the experimental centrality selection.
+	The concatenation of $\mathrm{d}S/\mathrm{d}\eta_s$ of all centralities forms the output vector of the model with one set of parameter inputs. 
+	The 100 output vector forms the observable matrix, while parameter vectors forms the design matrix. 
+	A principal value decomposition is performed on the observable matrix and the first 5 principal components, covering over 99.5$\%$ variance of the data, are used to describe the model output. 
+	The cumulative variance is displayed in Fig. (\ref{weight}).
+	
+	\begin{figure}
+	\begin{center}
+	\includegraphics[width=\columnwidth]{pics/weight.png}
+	\caption{Fraction of model output variance covered by the first $n$ principal components. The model output for PbPb and pPb were reduced to the first 5 principal components in our calculation, accounting for over 99.5\% of the data.}\label{weight}
+	\end{center}
+	\end{figure}
+	
+	Each of the 5 mappings from parameter space to principal components is emulated by an independent Gaussian process.
+	The hyper-parameters of the Gaussian process are optimized to maximize the model likelihood.
+	Finally using a MCMC procedure, the high dimensional posterior distribution is obtained as an ensemble of equilibrated parameter sets.
 	
 	It should be noted that measurements of p+Pb and Pb+Pb are conducted at different energies ($\sqrt{s}$ = 5.02 TeV/A and 2.76/A TeV respectively). 
-	Because phenomenological parameters generally change with $\sqrt{s}$, it is not fully consistent to compare model to a combined set experiment observables at different energies.
+	Because phenomenological parameters generally change with $\sqrt{s}$, it is not fully consistent to compare the model to a combined set of experimental observables at different energies.
 	Of course we may assume that the parameters do not change drastically by increasing $\sqrt{s}$ from 2.76 TeV/A to 5.02 TeV/A since they are much higher than other interested scales.
-	But for consistence, we run two model to data comparisons for p+Pb and Pb+Pb systems separately.
-	With the coming data of Pb+Pb at the same energy as p+Pb, a  constraint combining measurements of the two systems is possible.
+	But for consistency, we run two model-to-data comparisons for p+Pb and Pb+Pb systems separately.
+	With the future availability of p+Pb and Pb+Pb data at the same energy, a constraint combining measurements of the two systems is possible.
 	
-	Here we present the priori and posterior distribution of the observable $\mathrm{d}S/\mathrm{d}\eta_s$, where the green dots are points extracted from experimental measurements. 
-	The blue thin lines characterise the model output distribution with little knowledge of the distribution parameters (priori distribution), and the red lines are model output with model-to-data constraint on parameters (posterior).
+	Here we present the priori and posterior distributions of the observable $\mathrm{d}S/\mathrm{d}\eta_s$ in Fig. (\ref{pri-post-PbPb}) and (\ref{pri-post-pPb}).
+	The green dots are points extracted from experimental measurements. 
+	Blue thin lines characterise the model output distribution with little knowledge of the true value of parameters (priori distribution); while red lines are output after model-to-data constraint (posterior distribution).
+	The results show that the charged particle pseudo-rapidity distribution can be very well reproduced by our general formula for asymmetric entropy deposition.
+	Of course, the present result only works under the assumption that final state charged particle multiplicity is proportional to initial entropy. 
+	In the full evolution model, viscous effects during hydrodynamic evolution and inelastic scattering processes after freeze-out may slightly change this relation.
 	
+	\begin{figure}
+	\begin{center}
 	\includegraphics[width=\columnwidth]{pics/pri-post-PbPb.png}
+	\caption{Priori / posterior distribution of $\mathrm{d}N/\mathrm{d}\eta$ compared to PbPb data at $\sqrt{s} = 2.76$ TeV. The ensemble of blue thin lines and red thin lines characterize the priori and posterior distribution of $\mathrm{d}N/\mathrm{d}\eta$ respectively, while experimental data are denoted by green dots.}\label{pri-post-PbPb}
+	\end{center}
+	\end{figure}
 	
+	\begin{figure}
+	\begin{center}
 	\includegraphics[width=\columnwidth]{pics/pri-post-pPb.png}
-
-	The results show that the charged particle pseudo-rapidity distribution can be very well reproduced with our general formula for asymmetry entropy deposition ansatz.
-	Of course, the present result only works under the assumption that number of final state charged particles is proportional to initial entropy. 
-	In the full evolution model, viscous effects during hydrodynamics stages and inelastic scattering after freeze-out may change this relation slightly.
+	\caption{Priori / posterior distribution of $\mathrm{d}N/\mathrm{d}\eta$ compared to pPb data at $\sqrt{s} = 2.76$ TeV. The ensemble of blue thin lines and red thin lines characterize the priori and posterior distribution of $\mathrm{d}N/\mathrm{d}\eta$ respectively, while experimental data are denoted by green dots.}\label{pri-post-pPb}
+	\end{center}
+	\end{figure}
 	 
-	To examine to how well the phenomenological parameters are constrained by experiments, we marginalize the posterior distribution of model parameters. 
-	In Fig. (\ref{corner-PbPb}) and (\ref{corner-pPb}) we present the so-called corner plots of the posterior distribution. 
-	The plots on the diagonal are the marginalized distribution on a single parameter, while the off-diagonal plots shows the correlation between two parameters. 
-	Here are some important observations from the marginalized  posterior distribution:
+	To examine to how well the phenomenological parameters are constrained by experiment, we marginalize the posterior distribution of model parameters. 
+	In Fig. (\ref{corner-PbPb}) and (\ref{corner-pPb}) we present the corner plots of the posterior distribution. 
+	Diagonal blocks are the marginalized distribution on individual parameters, while the off-diagonal blocks show the correlation between two parameters. 
+	Here are some important observations:
 	\begin{itemize}
-	\item PbPb data, with only four centrality bins, does not constrains the fluctuation $k$ very well; pPb data are much more sensitive to the fluctuation, which yields a distribution of $k$ around 3.
-	\item pPb analysis is not very sensitive to the Jacobi factor and favours relatively large values; while PbPb analysis shows a peaked distribution around $0.655$. 
-	The present and the previous observation indicate that a combined analysis on both systems will benefit from the complementary constraint power of the two system.
-	\item The marginalized posterior for standard deviation ($\sigma$) of initial entropy pseudo-rapidity distribution favours a larger value in p+Pb than that in Pb+Pb analysis. 
-	This difference is what we expected since collision at higher energies should result in a broader pseudo-rapidity distribution. 
-	\item  The mean ($\mu$) and skewness coefficients $\gamma$ are an anti-correlated, since they are competing sources of longitudinal asymmetry. 
-	This correlation broadens the marginalized posterior distribution for either $\mu$ or $\gamma$. 
-	But interestingly, a combined analysis may result in a posterior favours unity $\mu$, which is naturally that mean rapidity of the asymmetrically produced matter is close to the center of mass rapidity of matter before the collision.
+	\item PbPb data does not constrain the fluctuation $k$ very well; but pPb data is much more sensitive and yields a distribution of $k$ peaked around 3.
+	\item pPb analysis favours a relatively large Jacobi factor and PbPb the opposite. 
+	This and the previous observation indicate that a combined analysis on both systems will benefit from the complementary constraint power of the two systems.
+	\item The marginalized posterior for the standard deviation ($\sigma$) of initial entropy longitudinal distribution favours a larger value in p+Pb than that in Pb+Pb analysis. 
+	This difference is expected since collision at higher energies should result in a broader pseudo-rapidity distribution. 
+	\item  An interesting result is that the mean coefficient is peaked around 1, indicating the mean rapidity of the asymmetrically produced matter is close to the center-of-mass rapidity of local target and projectile densities.
 	\end{itemize}
 	
-	\includegraphics[width=\columnwidth]{pics/corner-PbPb.pdf}
+	\begin{figure}
+	\begin{center}
+	\includegraphics[width=\columnwidth]{pics/corner-PbPb.png}
+	\caption{Marginalized posterior distribution of the parameters using PbPb data at $\sqrt{s} = 2.76$ TeV. The diagonal blocks are the marginalized posterior probability distributions of individual parameters; off-diagonal blocks are the marginalized associate distributions of two parameters.}\label{corner-PbPb}
+	\end{center}
+	\end{figure}
 	
-	\includegraphics[width=\columnwidth]{pics/corner-pPb.pdf}		
+	\begin{figure}
+	\begin{center}
+	\includegraphics[width=\columnwidth]{pics/corner-pPb.png}
+	\caption{Marginalized posterior distribution of the parameters using pPb data at $\sqrt{s} = 5.02$ TeV. The diagonal blocks are the marginalized posterior probability distributions of individual parameters; off-diagonal blocks are the marginalized associate distributions of two parameters.}\label{corner-pPb}
+	\end{center}
+	\end{figure}	
 	
-	\subsection{Full Time Evolution and Available Observables}
-	We take two sets of most probable parameters from the  posterior distribution and run it through hydrodynamics evolution and hadronic phase. 
-	The switching temperature $T_s = 0.148 \textrm{GeV}$ from hydrodynamic to Boltzmann transport description is chosen slightly below the pseudo-critical temperature of the equation of state $T_c = 0.154 \textrm{GeV}$ The transport coefficients are taken as flows:
+	\subsection{Full time evolution and observables}
+	We take a set of parameters around the maximum of posterior distribution and run it through the hydrodynamics evolution and the hadronic phase. 
+	The switching temperature $T_s = 0.148 \textrm{ GeV}$ from hydrodynamic to Boltzmann transport description is chosen slightly below the pseudo-critical temperature of the equation of state $T_c = 0.154 \textrm{ GeV}$. The transport coefficients are taken as follows:
 	\begin{eqnarray}
 		\frac{\eta}{s}  & = & 
 		\left\{ \begin{array}{l}
-		0.08 + 0.13 \frac{T - T_c}{T_c} \phantom{0.5} , T > T_c \\
-		0.5 \phantom{0.08 + 0.13 \frac{T - T_c}{T_c}}, T < T_c
+		0.08 + 0.13 \frac{T - T_c}{T_c} \phantom{0.8} , T > T_c \\
+		0.8 \phantom{0.12 + 0.13 \frac{T - T_c}{T_c}}, T < T_c
 		\end{array}
 		\right.	\\
 		\frac{\zeta}{s} &=&  0.
 	\end{eqnarray}
-	Thus, there is no bulk viscosity for simplicity and the shear viscosity over entropy ratio parametrisation has a minimum at $T_c$ and slowly increase with temperature linearly in the QGP phase, while remains constant in hadronic phase.
+	Thus, there is no bulk viscosity for simplicity and the shear viscosity over entropy ratio parametrisation has a minimum at $T_c$ and slowly increases with temperature linearly in the QGP phase, while it remains constant in the hadronic phase.
 		
 	The output of the full time evolution is a list of particles with their final state momentum and type information.
-	Apart from charged particle pseudo-rapidity density, more soft observables can be extracted from the final state particles as listed here,
+	Apart from charged particle pseudo-rapidity density, more soft observables can be extracted as listed here,
 	\begin{itemize}
 	\item Transverse energy pseudo-rapidity distribution.
 	\item Identified particle transverse momentum spectra.
 	\item Particle ratios.
-	\item Directed flows, which may be sensitive to different schemes of initial longitudinal entropy deposition according to \citep{Pitor:2009IC3d-1}.
-	\item Anisotropic flows, including $p_\textrm{T}$ integrated / differential flows, correlation between different flow harmonics and event by event flow distribution. Recently as pointed in \citep{Denicol:2015vn-eta}, anisotropic flow as function of rapidity are sensitive to the temperature dependence of $\eta/s$, we would like to examine how stable they are against the uncertainties of 3d initial condition.
-	\item Event plane decorrelation and twisting effects \citep{CMS:2015EP-decorr}.
+	\item Directed flows, which may be sensitive to different schemes of initial longitudinal entropy deposition according to \citep{Bozek:2009ty}.
+	\item Anisotropic flows, including $p_\textrm{T}$ integrated / differential flows, correlation between different flow harmonics and event-by-event flow distributions. Recently as pointed out in \citep{Denicol:2015bnf}, anisotropic flow as function of rapidity is sensitive to the temperature dependence of $\eta/s$. We would like to examine how stable they are against the uncertainties of 3d initial conditions.
+	\item Event plane decorrelation and twisting effects \citep{CMS:2015oea}.
 	\item Forward backward asymmetry and $\mathrm{d}N /\mathrm{d}\eta$ longitudinal fluctuation.
 	\end{itemize}
 	
-	For the moment, we focus on the charged particle pseudo-rapidity distribution, $p_T$ integrated flow at mid-rapidity and flow as function of pseudo-rapidity only. 
-	Flow coefficients are calculated using the cumulant method described in \citep{Bilandzic:2011Flow-calc} with the same kinetic cuts as experimental measurements.
+	For the moment, we focus on the charged particle pseudo-rapidity distribution, $p_T$ integrated flow at mid-rapidity and flow as a function of pseudo-rapidity only. 
+	Flow coefficients are calculated using the cumulant method described in \citep{Bilandzic:2010jr} with the same kinetic cuts as experimental measurements.
 	
 	Fig. (\ref{PbPb-dNdy-calc}) and  (\ref{pPb-dNdy-calc}) shows the charged particle distribution after full time evolution. 
-	It agrees very well with the experimental measurement over wide centrality class. 
-	Fig. (\ref{PbPb-vn-calc}) shows integrated flow calculation as function of centrality. 
-	$2^{nd}$, $3^{rd}$, $4^{th}$ and $6^{th}$ order flow harmonics are calculated from two particle correlation. $2^{nd}$ order four particle correlation is also shown for comparison.
-	The $\eta$ dependence of $v_2\{2\}$ is shown in fig (\ref{PbPb-vn-eta-calc}). The results shows a weak pseudo-rapidity dependence of $v_2\{2\}$, as is suggest by ATLAS measurements \citep{ATLAS:2014vn-eta}.
-	We also calculated directed flow as shown in fig. (\ref{RUN-1-PbPb-v1-eta}). 
-	However, the LHC method of measuring directed flow is by correlating particles emitted from the fireball with the spectator distribution.
-	In the present calculation, no spectator is provided, so we just present $\langle\langle  p_x/p_T \rangle\rangle$ and $\langle\langle p_y/p_T\rangle\rangle$ to estimate the magnitude of directed flow and check if our calculation works qualitatively.
+	It agrees very well with the experimental measurement over a wide range of centrality classes. 
+	Fig. (\ref{PbPb-vn-calc}) shows integrated flow as a function of centrality. 
+	Second, third and fourth order flow harmonics $v_2\{2\}$, $v_3\{2\}$ and $v_4\{2\}$ are calculated from two particle correlation. Second order flow from four particle correlation $v_2\{4\}$ is also shown for comparison.
+	The $\eta$ dependence of $v_2\{2\}$ is shown in Fig. (\ref{PbPb-vn-eta-calc}). The results show a weak pseudo-rapidity dependence of $v_2\{2\}$, as is suggest by ATLAS measurements \citep{ATLAS:2014eoa}.
+	We also calculated directed flow as shown in Fig. (\ref{RUN-1-PbPb-v1-eta}). 
+	However, ALICE measures directed flow by correlating particles emitted from the QGP with the spectators' distribution.
+	But spectator information is omitted in the present calculation, so we just present $\langle\langle \mathbf{p}_T\cdot \hat{b}/p_T\rangle\rangle$ to estimate the magnitude of directed flow and check if our calculation works qualitatively.
 	Our result show a linear $v_1-\eta$ relation with negative slope and weak centrality dependence.
-	These qualitative features agree with directed flow measurement by ALICE \citep{ALCIE:v1-eta}.
+	These qualitative features agree with ALICE measurement \citep{Abelev:2013cva}.
 	\begin{figure}
   	\centering
 	\includegraphics[width=\columnwidth]{pics/RUN-1-PbPb-dNdy-eta.png}
-  	\caption{}
+  	\caption{Centrality dependence of $\mathrm{d}N/\mathrm{d}\eta$ of PbPb at $\sqrt{s} = 2.76$ TeV from hybrid model compared to experimental data.}
   	\label{PbPb-dNdy-calc}
 	\end{figure}
 	
 	\begin{figure}
   	\centering
 	\includegraphics[width=\columnwidth]{pics/RUN-1-pPb-dNdy-eta.png}
-	\caption{}
+	\caption{Centrality dependence of $\mathrm{d}N/\mathrm{d}\eta$ of pPb at $\sqrt{s} = 5.02$ TeV from hybrid model compared to experimental data.}
   	\label{pPb-dNdy-calc}
 	\end{figure}
 	
 	\begin{figure}
   	\centering
 	\includegraphics[width=\columnwidth]{pics/new-PbPb-vnm-p1.png}	
-	\caption{}
+	\caption{Centrality dependence of anisotropic flow $v_n\{m\}$ of PbPb collision at $\sqrt{s} = 2.76$ TeV.}
   	\label{PbPb-vn-calc}
 	\end{figure}
 	
 	\begin{figure}
   	\centering
 	\includegraphics[width=\columnwidth]{pics/new-PbPb-vnm-eta-p1.png}
-	\caption{}
+	\caption{Pseudo-rapidity dependence of anisotropic flow $v_2\{2\}$ of PbPb collision at $\sqrt{s} = 2.76$ TeV.}
   	\label{PbPb-vn-eta-calc}
 	\end{figure}
 	
 	\begin{figure}
   	\centering
 	\includegraphics[width=\columnwidth]{pics/RUN-1-PbPb-v1-eta.png}
-	\caption{}
+	\caption{Pseudo-rapidity dependence of average transverse momentum $\langle\langle \mathbf{p}_T\cdot \hat{b}/p_T\rangle\rangle$ as an estimation of directed flow of PbPb collision at $\sqrt{s} = 2.76$ TeV.}
   	\label{RUN-1-PbPb-v1-eta}
 	\end{figure}
 	
-	These presented results are by no means our final purposes, but just a demonstration that 3d extended TRENTo initial condition combined with state-of-art hybrid model is able to capture the qualitative feature of a large variety of experimental observables.
-	With the Bayesian statistical tools the model has the potential to describe the experimental data quantitatively and more importantly, constrain our knowledge of initial state and QGP transport properties simultaneously.
+	These results by no means represent a best fit to experiment, but just demonstrate that 3d extended TRENTo initial condition combined with state-of-the-art hybrid model is able to capture the qualitative features of a variety of experimental observables -- especially those with pseudo-rapidity dependence.
+	The model has the potential to describe the experimental data quantitatively and more importantly, constrains our knowledge of initial state and QGP transport properties simultaneously through model-to-data comparison.
 	
 \section{Summary and Outlooks}
+	In summary, we extended the phenomenological initial condition model TRENTo for relativistic heavy ion collision from two to three dimensions. 	
+	The parametrization is simple and flexible to investigate different longitudinal entropy deposition schemes. 	
+	Using Bayesian analysis, initial condition model parameters are constrained by experimental observables that are not sensitive to dynamics. 	
+	The present entropy deposition scheme very well describes the observed charged particle pseudo-rapidity distribution of both symmetric and asymmetric collision at LHC energies.
+	We obtained the posterior probability distribution of model parameters, which shows that longitudinal entropy deposition favours a slightly skewed profile centred around the center of mass rapidity of local target and projectile densities.
+
+	We calculated more observables after full time evolution, especially those with longitudinal dependence, and showed that the model captures the qualitative feature of experimental data.
+
+	A model-to-data comparison with an enlarged set of observables will put much stronger constraints on initial condition models and at the same time improve our knowledge of QGP shear and bulk viscosity. 
+
+	Of course, as stated previously, a 3+1 D model is computationally intense. So we will next focus on improving the efficiency of the calculation. This could include code optimization, reducing model complexity by maximizing model likelihood and feeding our present result as priori for the next, more complicated statistical analysis.
+
+\section{Acknowledgements}
+
 % If in two-column mode, this environment will change to single-column
 % format so that long equations can be displayed. Use
 % sparingly.
@@ -639,7 +766,7 @@ The full posterior is a d-dimensional multi-variate distribution, which can be s
 % Lines of table here ending with \\
 % \end{tabular}
 % \end{ruledtabular}
-% \end{table}
+% \end{table} 
 
 % Surround table environment with turnpage environment for landscape
 % table
@@ -663,8 +790,8 @@ The full posterior is a d-dimensional multi-variate distribution, which can be s
 % put your acknowledgments here.
 %\end{acknowledgments}
 
-% Create the reference section using BibTeX:
-\bibliography{report2Notes}
+% Create the reference section using BibTeX: 
+\bibliography{report2Notes} 
 
 \end{document}
 %

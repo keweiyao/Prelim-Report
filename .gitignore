@@ -1,3 +1,5 @@
 .*
 !.gitignore
 build
+*~
+duke-qcd-refs
